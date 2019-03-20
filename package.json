@@ -1,6 +1,6 @@
 {
-  "name": "ui",
-  "version": "1.0.0",
+  "name": "elemental-react",
+  "version": "0.0.1",
   "description": "",
   "private": true,
   "main": "index.js",

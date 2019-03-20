@@ -1,1 +1,1 @@
-export { default } from  './dist/sketchBundle';
+export { default } from  './dist/sketchBundle.js';
