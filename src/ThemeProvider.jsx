@@ -1,10 +1,11 @@
+// @flow
 import React from 'react';
 import { ThemeProvider } from 'styled-components/primitives';
 
 const baseTheme = {
   fonts: {},
   space: [
-    0, 4, 8, 16, 32, 64, 128, 256, 512
+    0, 4, 8, 16, 32, 64, 128, 256, 512,
   ],
   colors: {
     black: '#000000',
@@ -20,7 +21,9 @@ const baseTheme = {
   lineHeights: {},
 };
 
-const ComponentLibThemeProvider = ({ theme = baseTheme, ...props }) => (
+const ComponentLibThemeProvider = ({ theme = baseTheme, ...props }: {
+  theme: typeof baseTheme,
+}) => (
   <ThemeProvider theme={theme} {...props} />
 );
 

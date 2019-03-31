@@ -14,8 +14,11 @@ const Input = styled(PrimitiveInput)`
 `;
 
 
-const TextInput = ({ level, bold, center, ...props }: ElementProps<typeof Text> & {
+const TextInput = ({
+  level, bold, center, ...props
+}: ElementProps<typeof Text> & {
   level?: number,
+  bold?: boolean,
 }) => {
   // const att = parseAttributes(
   //   // level && { fontSize: getSize[level] },

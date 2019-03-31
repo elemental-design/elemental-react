@@ -10,13 +10,12 @@ import {
 import { parseAttributes } from '../../utils';
 
 export type Props = {|
-  fontSize?: mixed,
+  fontSize?: string,
   fontFamily?: mixed,
   textColor?: mixed,
   textAlign?: mixed,
-  textStyle?: mixed,
+  textStyle?: string,
   fontWeight?: mixed,
-  fontSize?: mixed,
   fontStyle?: mixed,
   space?: mixed,
   letterSpacing?: mixed,

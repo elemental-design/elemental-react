@@ -1,5 +1,12 @@
 # Line, shape, form, texture and balance
 
+Abstraction for app presentation to speed up cross-platform UI design and development with code using React/Sketch as a design function.
+
+Build UI components once, render to any platform using `react-primitives`. This library abstracts away common UI patterns for you.
+
+
+## TODO: Clean up these notes:
+
 ## Line
 Themed colour (primary)
 - Weight
@@ -33,4 +40,3 @@ Equal distribution of visual weight – spacing.
 - Value
 
 ### Analagous Colour Scheme
-Dark blue, light blue, gr

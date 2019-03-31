@@ -41,13 +41,16 @@ const getSize = size => (size ? { height: size, width: size } : {});
 type Props = {
   onClick?: () => void,
   size?: number,
+  center?: boolean,
 };
 
-const BoxContainer = ({ onClick, size, center, ...props }: Props) => {
+const BoxContainer = ({
+  onClick, size, center, ...props
+}: Props) => {
   const box = (
     <Box
       {...getSize(size)}
-      {...(center && { alignItems: 'center' })}
+      {...(center ? { alignItems: 'center' } : {})}
       {...props}
     />
   );

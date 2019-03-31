@@ -3,7 +3,8 @@ import { type ComponentType } from 'react';
 import styled from 'styled-components/primitives';
 import {
   color, border, borderRadius, borderWidth, flex, borderLeft, borderRight,
-  borderColor, space, display, height, maxHeight, minHeight, width, maxWidth, minWidth, opacity, borderTop, borderBottom, flexWrap,
+  borderColor, space, display, height, maxHeight, minHeight, width, maxWidth,
+  minWidth, opacity, borderTop, borderBottom, flexWrap,
 } from 'styled-system';
 
 import {

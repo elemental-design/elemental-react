@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:flowtype/recommended"
+  ],
+  "plugins": [
+    "flowtype"
+  ],
+  "rules": {
+    "import/prefer-default-export": 0,
+    "import/no-named-as-default": 0,
+    "flowtype/semi": "error",
+    "react/default-props-match-prop-types": 0,
+    "flowtype/delimiter-dangle": [
+      2,
+      "always-multiline"
+    ]
+  }
+}
