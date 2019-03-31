@@ -14,6 +14,8 @@ const Button = (props: ElementProps<typeof Box>) => <ButtonComp {...props} />;
 
 Button.defaultProps = {
   borderWidth: 1,
+  p: 3,
+  pl: 4, pr: 4,
   borderColor: 'black',
   justifyContent: 'center',
   alignItems: 'center',

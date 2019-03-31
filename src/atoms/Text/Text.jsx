@@ -4,10 +4,10 @@ import styled, { css } from 'styled-components/primitives';
 import {
   fontSize, fontFamily, textColor, textAlign, lineHeight,
   textStyle, fontWeight, fontStyle, space, letterSpacing,
-  alignSelf, justifySelf, flex,
+  alignSelf, justifySelf, flex, opacity,
 } from 'styled-system';
 
-import { parseAttributes } from '../../../utils';
+import { parseAttributes } from '../../utils';
 
 export type Props = {|
   fontSize?: mixed,
@@ -24,6 +24,7 @@ export type Props = {|
   alignSelf?: mixed,
   justifySelf?: mixed,
   flex?: mixed,
+  opacity?: mixed,
 |};
 
 export const mixin = css`
@@ -41,6 +42,7 @@ export const mixin = css`
   ${alignSelf}
   ${justifySelf}
   ${flex}
+  ${opacity}
 `;
 
 const Text: ComponentType<Props> = styled.Text`
@@ -68,6 +70,7 @@ const TextContainer = ({ bold, center, ...props }: {
 
 TextContainer.defaultProps = {
   fontSize: 16, // eslint-disable-line react/default-props-match-prop-types
+  fontFamily: 'secondary',
   bold: undefined,
   center: undefined,
 };

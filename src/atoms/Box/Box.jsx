@@ -3,7 +3,7 @@ import React, { type ElementProps, type ComponentType } from 'react';
 import { Platform, Touchable } from 'react-primitives';
 import styled from 'styled-components/primitives';
 import {
-  justifyContent, alignItems, flexDirection, alignSelf, justifySelf,
+  justifyContent, alignItems, flexDirection, alignSelf, justifySelf, position, zIndex,
 } from 'styled-system';
 
 import Rectangle from '../Rectangle';
@@ -12,9 +12,11 @@ import Rectangle from '../Rectangle';
 type BoxProps = ElementProps<typeof Rectangle> & {
   justifyContent?: mixed,
   justifySelf?: mixed,
-  alignself?: mixed,
+  alignSelf?: mixed,
   alignItems?: mixed,
   flexDirection?: mixed,
+  position?: mixed,
+  zIndex?: mixed,
 };
 
 const Box: ComponentType<BoxProps> = styled(Rectangle)`
@@ -23,6 +25,8 @@ const Box: ComponentType<BoxProps> = styled(Rectangle)`
   ${flexDirection}
   ${justifySelf}
   ${alignSelf}
+  ${position}
+  ${zIndex}
 `;
 
 // $FlowFixMe
@@ -39,10 +43,11 @@ type Props = {
   size?: number,
 };
 
-const BoxContainer = ({ onClick, size, ...props }: Props) => {
+const BoxContainer = ({ onClick, size, center, ...props }: Props) => {
   const box = (
     <Box
       {...getSize(size)}
+      {...(center && { alignItems: 'center' })}
       {...props}
     />
   );

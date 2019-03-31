@@ -6,24 +6,29 @@ import styled from 'styled-components/primitives';
 
 import PrimitiveInput from 'react-primitives-textinput';
 
-import { mixin } from '../../../atoms/components/Text/Text';
+import { parseAttributes } from '../../utils';
+import { mixin } from '../../atoms/Text/Text';
 
 const Input = styled(PrimitiveInput)`
   ${mixin}
 `;
-// import { parseAttributes } from '../../../utils';
 
 
-const TextInput = ({ level, ...props }: ElementProps<typeof Text> & {
+const TextInput = ({ level, bold, center, ...props }: ElementProps<typeof Text> & {
   level?: number,
 }) => {
   // const att = parseAttributes(
   //   // level && { fontSize: getSize[level] },
   // );
+  const att = parseAttributes(
+    bold && { fontWeight: 'bold' },
+    center && { textAlign: 'center' }, // eslint-disable-next-line react/destructuring-assignment
+    props.fontSize && !props.lineHeight && { lineHeight: props.fontSize },
+  );
 
   return (
     <Input
-      // {...att}
+      {...att}
       {...props}
     />
   );

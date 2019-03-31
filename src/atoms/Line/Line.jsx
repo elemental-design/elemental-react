@@ -18,6 +18,7 @@ Line.defaultProps = {
   width: 64,
   height: 1,
   bg: 'black',
+  borderWidth: 0,
 };
 
 export default Line;

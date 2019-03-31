@@ -3,13 +3,13 @@ import { type ComponentType } from 'react';
 import styled from 'styled-components/primitives';
 import {
   color, border, borderRadius, borderWidth, flex, borderLeft, borderRight,
-  borderColor, space, display, height, width, opacity, borderTop, borderBottom,
+  borderColor, space, display, height, maxHeight, minHeight, width, maxWidth, minWidth, opacity, borderTop, borderBottom, flexWrap,
 } from 'styled-system';
 
 import {
   borderBottomColor, borderBottomWidth, borderLeftColor, borderLeftWidth,
   borderTopColor, borderTopWidth, borderRightColor, borderRightWidth,
-} from '../../../utils/styles';
+} from '../../utils/styles';
 
 
 type RectangleProps = {
@@ -33,8 +33,13 @@ type RectangleProps = {
   borderRightColor?: mixed,
   space?: mixed,
   height?: mixed,
+  maxHeight?: mixed,
+  minHeight?: mixed,
   width?: mixed,
+  maxWidth?: mixed,
+  minWidth?: mixed,
   opacity?: mixed,
+  flexWrap?: mixed,
 };
 
 const Rectangle: ComponentType<RectangleProps> = styled.View`
@@ -58,8 +63,13 @@ const Rectangle: ComponentType<RectangleProps> = styled.View`
   ${borderRightColor}
   ${space}
   ${height}
+  ${maxHeight}
+  ${minHeight}
   ${width}
+  ${maxWidth}
+  ${minWidth}
   ${opacity}
+  ${flexWrap}
   ${flex}
 `;
 

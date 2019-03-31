@@ -1,7 +1,10 @@
 // @flow
+export { default as ThemeProvider } from './ThemeProvider';
+export { default as styled } from 'styled-components/primitives';
+
 export {
   Circle, Rectangle, Line,
   Box, Text, Image, Button,
-} from './atoms/components';
+} from './atoms';
 
-export { Headline, TextInput } from './molecules/components';
+export { Headline, TextInput, Row } from './molecules';

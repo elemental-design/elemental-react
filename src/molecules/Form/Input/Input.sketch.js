@@ -3,7 +3,7 @@
 import React, { type ElementProps } from 'react';
 // import { Platform } from 'react-primitives';
 
-import { Box, Text } from '../../../../atoms/components';
+import { Box, Text } from '../../../atoms';
 
 const Input = ({
   value, placeholder, children, ...props
