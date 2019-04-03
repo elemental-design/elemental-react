@@ -1,0 +1,25 @@
+{
+  "compatibleVersion": 3,
+  "bundleVersion": 1,
+  "commands": [
+    {
+      "name": "static-blog: Blog",
+      "identifier": "main",
+      "script": "index.js"
+    }
+  ],
+  "menu": {
+    "isRoot": true,
+    "items": [
+      "main"
+    ]
+  },
+  "version": "0.0.1",
+  "description": "",
+  "name": "static-blog",
+  "identifier": "static-blog",
+  "disableCocoaScriptPreprocessor": true,
+  "appcast": "https://raw.githubusercontent.com//master/.appcast.xml",
+  "author": "Macintosh Helper",
+  "authorEmail": "noreply@macintoshhelper.com"
+}
