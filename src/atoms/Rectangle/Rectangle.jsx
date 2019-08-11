@@ -1,6 +1,8 @@
 // @flow
 import { type ComponentType } from 'react';
-import styled from 'styled-components/primitives';
+import styledP from 'styled-components/primitives';
+import { Platform } from 'react-primitives';
+import styled, { css } from 'styled-components';
 import {
   color, border, borderRadius, borderWidth, flex, borderLeft, borderRight,
   borderColor, space, display, height, maxHeight, minHeight, width, maxWidth,
@@ -10,6 +12,7 @@ import {
 import {
   borderBottomColor, borderBottomWidth, borderLeftColor, borderLeftWidth,
   borderTopColor, borderTopWidth, borderRightColor, borderRightWidth,
+  borderStyle,
 } from '../../utils/styles';
 
 
@@ -23,6 +26,7 @@ type RectangleProps = {
   borderBottom?: mixed,
   borderRadius?: mixed,
   borderColor?: mixed,
+  borderStyle?: mixed,
   borderWidth?: mixed,
   borderBottomWidth?: mixed,
   borderBottomColor?: mixed,
@@ -43,7 +47,7 @@ type RectangleProps = {
   flexWrap?: mixed,
 };
 
-const Rectangle: ComponentType<RectangleProps> = styled.View`
+const mixin = css`
   ${display}
   ${color}
   ${border}
@@ -53,6 +57,7 @@ const Rectangle: ComponentType<RectangleProps> = styled.View`
   ${borderRight}
   ${borderRadius}
   ${borderColor}
+  ${borderStyle}
   ${borderWidth}
   ${borderBottomWidth}
   ${borderBottomColor}
@@ -74,10 +79,16 @@ const Rectangle: ComponentType<RectangleProps> = styled.View`
   ${flex}
 `;
 
+const Rectangle: ComponentType<RectangleProps> = Platform.OS === 'web' ? styled.div`
+  ${mixin}
+` : styledP.View`${mixin}`;
+
+
 // $FlowFixMe
 Rectangle.defaultProps = {
   borderColor: 'black',
   borderWidth: 1,
+  borderStyle: 'solid',
 };
 
 

@@ -34,5 +34,5 @@ export default {
     }),
     commonjs(),
   ],
-  external: ['react', 'react-dom', 'react-is', 'styled-components', 'styled-system', 'react-primitives'],
+  external: ['react', 'react-native-web', 'react-dom', 'react-is', 'styled-components', 'styled-system', 'react-primitives'],
 };

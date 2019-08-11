@@ -1,7 +1,8 @@
 // @flow
 import { type ComponentType, type ElementProps } from 'react';
-import styled from 'styled-components/primitives';
 import { opacity } from 'styled-system';
+
+import styled from '../../styled';
 
 import Rectangle from '../Rectangle';
 

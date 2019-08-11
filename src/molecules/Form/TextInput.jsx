@@ -1,15 +1,28 @@
 // @flow
 /* eslint-disable quote-props */
 import React, { type ElementProps } from 'react';
-// import { Platform } from 'react-primitives';
+import { Text } from 'react-primitives';
 import styled from 'styled-components/primitives';
 
-import PrimitiveInput from 'react-primitives-textinput';
+// import PrimitiveInput from 'react-primitives-textinput';
 
 import { parseAttributes } from '../../utils';
 import { mixin } from '../../atoms/Text/Text';
 
-const Input = styled(PrimitiveInput)`
+const Input = ({ value, placeholder, ...props }) => (
+  <Text {...props}>
+    {placeholder || value}
+  </Text>
+);
+
+Input.defaultProps = {
+  style: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#000000',
+  },
+};
+
+const StyledInput = styled(Input)`
   ${mixin}
 `;
 
@@ -30,7 +43,7 @@ const TextInput = ({
   );
 
   return (
-    <Input
+    <StyledInput
       {...att}
       {...props}
     />

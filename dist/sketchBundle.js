@@ -1,7 +1,10 @@
-import React, { cloneElement, createContext, Component, createElement } from 'react';
+import React, { cloneElement, createContext, Component, createElement, useContext } from 'react';
 import { ForwardRef, isValidElementType, isElement } from 'react-is';
 import os from 'os';
-import reactPrimitives, { Platform, Touchable } from 'react-primitives';
+import reactPrimitives, { Platform, Touchable, Text as Text$1 } from 'react-primitives';
+import styled$2, { css as css$1 } from 'styled-components';
+export { StyleSheetManager, ServerStyleSheet, createGlobalStyle } from 'styled-components';
+import { Svg, Circle as Circle$2 } from 'react-primitives-svg';
 import { style, display, color, border, borderTop, borderBottom, borderLeft, borderRight, borderRadius, borderColor, borderWidth, space, height, maxHeight, minHeight, width, maxWidth, minWidth, opacity, flexWrap, flex, justifyContent, alignItems, flexDirection, justifySelf, alignSelf, position, zIndex, fontSize, fontFamily, textColor, textAlign, textStyle, fontWeight, fontStyle, letterSpacing, lineHeight } from 'styled-system';
 
 function _typeof(obj) {
@@ -118,6 +121,44 @@ function _taggedTemplateLiteral(strings, raw) {
   }));
 }
 
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}
+
 function unwrapExports (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x.default : x;
 }
@@ -132,7 +173,7 @@ function getCjsExportFromNamespace (n) {
 
 var stylis_min = createCommonjsModule(function (module, exports) {
 !function(e){module.exports=e(null);}(function e(a){var r=/^\0+/g,c=/[\0\r\f]/g,s=/: */g,t=/zoo|gra/,i=/([,: ])(transform)/g,f=/,+\s*(?![^(]*[)])/g,n=/ +\s*(?![^(]*[)])/g,l=/ *[\0] */g,o=/,\r+?/g,h=/([\t\r\n ])*\f?&/g,u=/:global\(((?:[^\(\)\[\]]*|\[.*\]|\([^\(\)]*\))*)\)/g,d=/\W+/g,b=/@(k\w+)\s*(\S*)\s*/,p=/::(place)/g,k=/:(read-only)/g,g=/\s+(?=[{\];=:>])/g,A=/([[}=:>])\s+/g,C=/(\{[^{]+?);(?=\})/g,w=/\s{2,}/g,v=/([^\(])(:+) */g,m=/[svh]\w+-[tblr]{2}/,x=/\(\s*(.*)\s*\)/g,$=/([\s\S]*?);/g,y=/-self|flex-/g,O=/[^]*?(:[rp][el]a[\w-]+)[^]*/,j=/stretch|:\s*\w+\-(?:conte|avail)/,z=/([^-])(image-set\()/,N="-webkit-",S="-moz-",F="-ms-",W=59,q=125,B=123,D=40,E=41,G=91,H=93,I=10,J=13,K=9,L=64,M=32,P=38,Q=45,R=95,T=42,U=44,V=58,X=39,Y=34,Z=47,_=62,ee=43,ae=126,re=0,ce=12,se=11,te=107,ie=109,fe=115,ne=112,le=111,oe=105,he=99,ue=100,de=112,be=1,pe=1,ke=0,ge=1,Ae=1,Ce=1,we=0,ve=0,me=0,xe=[],$e=[],ye=0,Oe=null,je=-2,ze=-1,Ne=0,Se=1,Fe=2,We=3,qe=0,Be=1,De="",Ee="",Ge="";function He(e,a,s,t,i){for(var f,n,o=0,h=0,u=0,d=0,g=0,A=0,C=0,w=0,m=0,$=0,y=0,O=0,j=0,z=0,R=0,we=0,$e=0,Oe=0,je=0,ze=s.length,Je=ze-1,Re="",Te="",Ue="",Ve="",Xe="",Ye="";R<ze;){if(C=s.charCodeAt(R),R===Je)if(h+d+u+o!==0){if(0!==h)C=h===Z?I:Z;d=u=o=0,ze++,Je++;}if(h+d+u+o===0){if(R===Je){if(we>0)Te=Te.replace(c,"");if(Te.trim().length>0){switch(C){case M:case K:case W:case J:case I:break;default:Te+=s.charAt(R);}C=W;}}if(1===$e)switch(C){case B:case q:case W:case Y:case X:case D:case E:case U:$e=0;case K:case J:case I:case M:break;default:for($e=0,je=R,g=C,R--,C=W;je<ze;)switch(s.charCodeAt(je++)){case I:case J:case W:++R,C=g,je=ze;break;case V:if(we>0)++R,C=g;case B:je=ze;}}switch(C){case B:for(g=(Te=Te.trim()).charCodeAt(0),y=1,je=++R;R<ze;){switch(C=s.charCodeAt(R)){case B:y++;break;case q:y--;break;case Z:switch(A=s.charCodeAt(R+1)){case T:case Z:R=Qe(A,R,Je,s);}break;case G:C++;case D:C++;case Y:case X:for(;R++<Je&&s.charCodeAt(R)!==C;);}if(0===y)break;R++;}if(Ue=s.substring(je,R),g===re)g=(Te=Te.replace(r,"").trim()).charCodeAt(0);switch(g){case L:if(we>0)Te=Te.replace(c,"");switch(A=Te.charCodeAt(1)){case ue:case ie:case fe:case Q:f=a;break;default:f=xe;}if(je=(Ue=He(a,f,Ue,A,i+1)).length,me>0&&0===je)je=Te.length;if(ye>0)if(f=Ie(xe,Te,Oe),n=Pe(We,Ue,f,a,pe,be,je,A,i,t),Te=f.join(""),void 0!==n)if(0===(je=(Ue=n.trim()).length))A=0,Ue="";if(je>0)switch(A){case fe:Te=Te.replace(x,Me);case ue:case ie:case Q:Ue=Te+"{"+Ue+"}";break;case te:if(Ue=(Te=Te.replace(b,"$1 $2"+(Be>0?De:"")))+"{"+Ue+"}",1===Ae||2===Ae&&Le("@"+Ue,3))Ue="@"+N+Ue+"@"+Ue;else Ue="@"+Ue;break;default:if(Ue=Te+Ue,t===de)Ve+=Ue,Ue="";}else Ue="";break;default:Ue=He(a,Ie(a,Te,Oe),Ue,t,i+1);}Xe+=Ue,O=0,$e=0,z=0,we=0,Oe=0,j=0,Te="",Ue="",C=s.charCodeAt(++R);break;case q:case W:if((je=(Te=(we>0?Te.replace(c,""):Te).trim()).length)>1){if(0===z)if((g=Te.charCodeAt(0))===Q||g>96&&g<123)je=(Te=Te.replace(" ",":")).length;if(ye>0)if(void 0!==(n=Pe(Se,Te,a,e,pe,be,Ve.length,t,i,t)))if(0===(je=(Te=n.trim()).length))Te="\0\0";switch(g=Te.charCodeAt(0),A=Te.charCodeAt(1),g){case re:break;case L:if(A===oe||A===he){Ye+=Te+s.charAt(R);break}default:if(Te.charCodeAt(je-1)===V)break;Ve+=Ke(Te,g,A,Te.charCodeAt(2));}}O=0,$e=0,z=0,we=0,Oe=0,Te="",C=s.charCodeAt(++R);}}switch(C){case J:case I:if(h+d+u+o+ve===0)switch($){case E:case X:case Y:case L:case ae:case _:case T:case ee:case Z:case Q:case V:case U:case W:case B:case q:break;default:if(z>0)$e=1;}if(h===Z)h=0;else if(ge+O===0&&t!==te&&Te.length>0)we=1,Te+="\0";if(ye*qe>0)Pe(Ne,Te,a,e,pe,be,Ve.length,t,i,t);be=1,pe++;break;case W:case q:if(h+d+u+o===0){be++;break}default:switch(be++,Re=s.charAt(R),C){case K:case M:if(d+o+h===0)switch(w){case U:case V:case K:case M:Re="";break;default:if(C!==M)Re=" ";}break;case re:Re="\\0";break;case ce:Re="\\f";break;case se:Re="\\v";break;case P:if(d+h+o===0&&ge>0)Oe=1,we=1,Re="\f"+Re;break;case 108:if(d+h+o+ke===0&&z>0)switch(R-z){case 2:if(w===ne&&s.charCodeAt(R-3)===V)ke=w;case 8:if(m===le)ke=m;}break;case V:if(d+h+o===0)z=R;break;case U:if(h+u+d+o===0)we=1,Re+="\r";break;case Y:case X:if(0===h)d=d===C?0:0===d?C:d;break;case G:if(d+h+u===0)o++;break;case H:if(d+h+u===0)o--;break;case E:if(d+h+o===0)u--;break;case D:if(d+h+o===0){if(0===O)switch(2*w+3*m){case 533:break;default:y=0,O=1;}u++;}break;case L:if(h+u+d+o+z+j===0)j=1;break;case T:case Z:if(d+o+u>0)break;switch(h){case 0:switch(2*C+3*s.charCodeAt(R+1)){case 235:h=Z;break;case 220:je=R,h=T;}break;case T:if(C===Z&&w===T&&je+2!==R){if(33===s.charCodeAt(je+2))Ve+=s.substring(je,R+1);Re="",h=0;}}}if(0===h){if(ge+d+o+j===0&&t!==te&&C!==W)switch(C){case U:case ae:case _:case ee:case E:case D:if(0===O){switch(w){case K:case M:case I:case J:Re+="\0";break;default:Re="\0"+Re+(C===U?"":"\0");}we=1;}else switch(C){case D:if(z+7===R&&108===w)z=0;O=++y;break;case E:if(0==(O=--y))we=1,Re+="\0";}break;case K:case M:switch(w){case re:case B:case q:case W:case U:case ce:case K:case M:case I:case J:break;default:if(0===O)we=1,Re+="\0";}}if(Te+=Re,C!==M&&C!==K)$=C;}}m=w,w=C,R++;}if(je=Ve.length,me>0)if(0===je&&0===Xe.length&&0===a[0].length==false)if(t!==ie||1===a.length&&(ge>0?Ee:Ge)===a[0])je=a.join(",").length+2;if(je>0){if(f=0===ge&&t!==te?function(e){for(var a,r,s=0,t=e.length,i=Array(t);s<t;++s){for(var f=e[s].split(l),n="",o=0,h=0,u=0,d=0,b=f.length;o<b;++o){if(0===(h=(r=f[o]).length)&&b>1)continue;if(u=n.charCodeAt(n.length-1),d=r.charCodeAt(0),a="",0!==o)switch(u){case T:case ae:case _:case ee:case M:case D:break;default:a=" ";}switch(d){case P:r=a+Ee;case ae:case _:case ee:case M:case E:case D:break;case G:r=a+r+Ee;break;case V:switch(2*r.charCodeAt(1)+3*r.charCodeAt(2)){case 530:if(Ce>0){r=a+r.substring(8,h-1);break}default:if(o<1||f[o-1].length<1)r=a+Ee+r;}break;case U:a="";default:if(h>1&&r.indexOf(":")>0)r=a+r.replace(v,"$1"+Ee+"$2");else r=a+r+Ee;}n+=r;}i[s]=n.replace(c,"").trim();}return i}(a):a,ye>0)if(void 0!==(n=Pe(Fe,Ve,f,e,pe,be,je,t,i,t))&&0===(Ve=n).length)return Ye+Ve+Xe;if(Ve=f.join(",")+"{"+Ve+"}",Ae*ke!=0){if(2===Ae&&!Le(Ve,2))ke=0;switch(ke){case le:Ve=Ve.replace(k,":"+S+"$1")+Ve;break;case ne:Ve=Ve.replace(p,"::"+N+"input-$1")+Ve.replace(p,"::"+S+"$1")+Ve.replace(p,":"+F+"input-$1")+Ve;}ke=0;}}return Ye+Ve+Xe}function Ie(e,a,r){var c=a.trim().split(o),s=c,t=c.length,i=e.length;switch(i){case 0:case 1:for(var f=0,n=0===i?"":e[0]+" ";f<t;++f)s[f]=Je(n,s[f],r,i).trim();break;default:f=0;var l=0;for(s=[];f<t;++f)for(var h=0;h<i;++h)s[l++]=Je(e[h]+" ",c[f],r,i).trim();}return s}function Je(e,a,r,c){var s=a,t=s.charCodeAt(0);if(t<33)t=(s=s.trim()).charCodeAt(0);switch(t){case P:switch(ge+c){case 0:case 1:if(0===e.trim().length)break;default:return s.replace(h,"$1"+e.trim())}break;case V:switch(s.charCodeAt(1)){case 103:if(Ce>0&&ge>0)return s.replace(u,"$1").replace(h,"$1"+Ge);break;default:return e.trim()+s.replace(h,"$1"+e.trim())}default:if(r*ge>0&&s.indexOf("\f")>0)return s.replace(h,(e.charCodeAt(0)===V?"":"$1")+e.trim())}return e+s}function Ke(e,a,r,c){var l,o=0,h=e+";",u=2*a+3*r+4*c;if(944===u)return function(e){var a=e.length,r=e.indexOf(":",9)+1,c=e.substring(0,r).trim(),s=e.substring(r,a-1).trim();switch(e.charCodeAt(9)*Be){case 0:break;case Q:if(110!==e.charCodeAt(10))break;default:for(var t=s.split((s="",f)),i=0,r=0,a=t.length;i<a;r=0,++i){for(var l=t[i],o=l.split(n);l=o[r];){var h=l.charCodeAt(0);if(1===Be&&(h>L&&h<90||h>96&&h<123||h===R||h===Q&&l.charCodeAt(1)!==Q))switch(isNaN(parseFloat(l))+(-1!==l.indexOf("("))){case 1:switch(l){case"infinite":case"alternate":case"backwards":case"running":case"normal":case"forwards":case"both":case"none":case"linear":case"ease":case"ease-in":case"ease-out":case"ease-in-out":case"paused":case"reverse":case"alternate-reverse":case"inherit":case"initial":case"unset":case"step-start":case"step-end":break;default:l+=De;}}o[r++]=l;}s+=(0===i?"":",")+o.join(" ");}}if(s=c+s+";",1===Ae||2===Ae&&Le(s,1))return N+s+s;return s}(h);else if(0===Ae||2===Ae&&!Le(h,1))return h;switch(u){case 1015:return 97===h.charCodeAt(10)?N+h+h:h;case 951:return 116===h.charCodeAt(3)?N+h+h:h;case 963:return 110===h.charCodeAt(5)?N+h+h:h;case 1009:if(100!==h.charCodeAt(4))break;case 969:case 942:return N+h+h;case 978:return N+h+S+h+h;case 1019:case 983:return N+h+S+h+F+h+h;case 883:if(h.charCodeAt(8)===Q)return N+h+h;if(h.indexOf("image-set(",11)>0)return h.replace(z,"$1"+N+"$2")+h;return h;case 932:if(h.charCodeAt(4)===Q)switch(h.charCodeAt(5)){case 103:return N+"box-"+h.replace("-grow","")+N+h+F+h.replace("grow","positive")+h;case 115:return N+h+F+h.replace("shrink","negative")+h;case 98:return N+h+F+h.replace("basis","preferred-size")+h}return N+h+F+h+h;case 964:return N+h+F+"flex-"+h+h;case 1023:if(99!==h.charCodeAt(8))break;return l=h.substring(h.indexOf(":",15)).replace("flex-","").replace("space-between","justify"),N+"box-pack"+l+N+h+F+"flex-pack"+l+h;case 1005:return t.test(h)?h.replace(s,":"+N)+h.replace(s,":"+S)+h:h;case 1e3:switch(o=(l=h.substring(13).trim()).indexOf("-")+1,l.charCodeAt(0)+l.charCodeAt(o)){case 226:l=h.replace(m,"tb");break;case 232:l=h.replace(m,"tb-rl");break;case 220:l=h.replace(m,"lr");break;default:return h}return N+h+F+l+h;case 1017:if(-1===h.indexOf("sticky",9))return h;case 975:switch(o=(h=e).length-10,u=(l=(33===h.charCodeAt(o)?h.substring(0,o):h).substring(e.indexOf(":",7)+1).trim()).charCodeAt(0)+(0|l.charCodeAt(7))){case 203:if(l.charCodeAt(8)<111)break;case 115:h=h.replace(l,N+l)+";"+h;break;case 207:case 102:h=h.replace(l,N+(u>102?"inline-":"")+"box")+";"+h.replace(l,N+l)+";"+h.replace(l,F+l+"box")+";"+h;}return h+";";case 938:if(h.charCodeAt(5)===Q)switch(h.charCodeAt(6)){case 105:return l=h.replace("-items",""),N+h+N+"box-"+l+F+"flex-"+l+h;case 115:return N+h+F+"flex-item-"+h.replace(y,"")+h;default:return N+h+F+"flex-line-pack"+h.replace("align-content","").replace(y,"")+h}break;case 973:case 989:if(h.charCodeAt(3)!==Q||122===h.charCodeAt(4))break;case 931:case 953:if(true===j.test(e))if(115===(l=e.substring(e.indexOf(":")+1)).charCodeAt(0))return Ke(e.replace("stretch","fill-available"),a,r,c).replace(":fill-available",":stretch");else return h.replace(l,N+l)+h.replace(l,S+l.replace("fill-",""))+h;break;case 962:if(h=N+h+(102===h.charCodeAt(5)?F+h:"")+h,r+c===211&&105===h.charCodeAt(13)&&h.indexOf("transform",10)>0)return h.substring(0,h.indexOf(";",27)+1).replace(i,"$1"+N+"$2")+h}return h}function Le(e,a){var r=e.indexOf(1===a?":":"{"),c=e.substring(0,3!==a?r:10),s=e.substring(r+1,e.length-1);return Oe(2!==a?c:c.replace(O,"$1"),s,a)}function Me(e,a){var r=Ke(a,a.charCodeAt(0),a.charCodeAt(1),a.charCodeAt(2));return r!==a+";"?r.replace($," or ($1)").substring(4):"("+a+")"}function Pe(e,a,r,c,s,t,i,f,n,l){for(var o,h=0,u=a;h<ye;++h)switch(o=$e[h].call(Te,e,u,r,c,s,t,i,f,n,l)){case void 0:case false:case true:case null:break;default:u=o;}if(u!==a)return u}function Qe(e,a,r,c){for(var s=a+1;s<r;++s)switch(c.charCodeAt(s)){case Z:if(e===T)if(c.charCodeAt(s-1)===T&&a+2!==s)return s+1;break;case I:if(e===Z)return s+1}return s}function Re(e){for(var a in e){var r=e[a];switch(a){case"keyframe":Be=0|r;break;case"global":Ce=0|r;break;case"cascade":ge=0|r;break;case"compress":we=0|r;break;case"semicolon":ve=0|r;break;case"preserve":me=0|r;break;case"prefix":if(Oe=null,!r)Ae=0;else if("function"!=typeof r)Ae=1;else Ae=2,Oe=r;}}return Re}function Te(a,r){if(void 0!==this&&this.constructor===Te)return e(a);var s=a,t=s.charCodeAt(0);if(t<33)t=(s=s.trim()).charCodeAt(0);if(Be>0)De=s.replace(d,t===G?"":"-");if(t=1,1===ge)Ge=s;else Ee=s;var i,f=[Ge];if(ye>0)if(void 0!==(i=Pe(ze,r,f,f,pe,be,0,0,0,0))&&"string"==typeof i)r=i;var n=He(xe,f,r,0,0);if(ye>0)if(void 0!==(i=Pe(je,n,f,f,pe,be,n.length,0,0,0))&&"string"!=typeof(n=i))t=0;return De="",Ge="",Ee="",ke=0,pe=1,be=1,we*t==0?n:n.replace(c,"").replace(g,"").replace(A,"$1").replace(C,"$1").replace(w," ")}if(Te.use=function e(a){switch(a){case void 0:case null:ye=$e.length=0;break;default:if("function"==typeof a)$e[ye++]=a;else if("object"==typeof a)for(var r=0,c=a.length;r<c;++r)e(a[r]);else qe=0|!!a;}return e},Te.set=Re,void 0!==a)Re(a);return Te});
-
+//# sourceMappingURL=stylis.min.js.map
 });
 
 var stylisRuleSheet = createCommonjsModule(function (module, exports) {
@@ -8580,6 +8621,36 @@ function constructWithOptions(componentConstructor, tag) {
 
 // 
 
+var withTheme = (function (Component$$1) {
+  var WithTheme = React.forwardRef(function (props, ref) {
+    return React.createElement(
+      ThemeConsumer,
+      null,
+      function (theme) {
+        // $FlowFixMe
+        var defaultProps = Component$$1.defaultProps;
+
+        var themeProp = determineTheme(props, theme, defaultProps);
+
+        if (process.env.NODE_ENV !== 'production' && themeProp === undefined) {
+          // eslint-disable-next-line no-console
+          console.warn('[withTheme] You are not using a ThemeProvider nor passing a theme prop or a theme in defaultProps in component class "' + getComponentName(Component$$1) + '"');
+        }
+
+        return React.createElement(Component$$1, _extends$1({}, props, { theme: themeProp, ref: ref }));
+      }
+    );
+  });
+
+  hoistNonReactStatics(WithTheme, Component$$1);
+
+  WithTheme.displayName = 'WithTheme(' + getComponentName(Component$$1) + ')';
+
+  return WithTheme;
+});
+
+// 
+
 var InlineStyle = _InlineStyle(reactPrimitives.StyleSheet);
 var StyledNativeComponent$1 = _StyledNativeComponent(InlineStyle);
 var styled = function styled(tag) {
@@ -8601,6 +8672,7 @@ aliases.split(/\s+/m).forEach(function (alias) {
     }
   });
 });
+//# sourceMappingURL=styled-components-primitives.esm.js.map
 
 var baseTheme = {
   fonts: {},
@@ -8624,6 +8696,117 @@ var ComponentLibThemeProvider = function ComponentLibThemeProvider(_ref) {
     theme: theme
   }, props));
 };
+
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols$1 = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+var objectAssign = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols$1) {
+			symbols = getOwnPropertySymbols$1(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+var get = function get(obj, key, def, p, undef) {
+  key = key && key.split ? key.split('.') : [key];
+
+  for (p = 0; p < key.length; p++) {
+    obj = obj ? obj[key[p]] : undef;
+  }
+
+  return obj === undef ? def : obj;
+};
+
+var themeGet = function themeGet(path, fallback) {
+  if (fallback === void 0) {
+    fallback = null;
+  }
+
+  return function (props) {
+    return get(props.theme, path, fallback);
+  };
+};
+
+var styled$1 = Platform.OS === 'web' ? styled$2 : styled;
 
 var borderBottomWidth = style({
   prop: 'borderBottomWidth',
@@ -8669,9 +8852,33 @@ var borderRightColor = style({
   prop: 'borderRightColor',
   cssProperty: 'border-right-color'
 });
+var borderStyle = style({
+  prop: 'borderStyle',
+  cssProperty: 'border-style'
+});
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["", ""]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -8679,90 +8886,13 @@ function _templateObject() {
 
   return data;
 }
-var Rectangle = styled.View(_templateObject(), display, color, border, borderTop, borderBottom, borderLeft, borderRight, borderRadius, borderColor, borderWidth, borderBottomWidth, borderBottomColor, borderTopWidth, borderTopColor, borderLeftWidth, borderLeftColor, borderRightWidth, borderRightColor, space, height, maxHeight, minHeight, width, maxWidth, minWidth, opacity, flexWrap, flex); // $FlowFixMe
+var mixin = css$1(_templateObject(), display, color, border, borderTop, borderBottom, borderLeft, borderRight, borderRadius, borderColor, borderStyle, borderWidth, borderBottomWidth, borderBottomColor, borderTopWidth, borderTopColor, borderLeftWidth, borderLeftColor, borderRightWidth, borderRightColor, space, height, maxHeight, minHeight, width, maxWidth, minWidth, opacity, flexWrap, flex);
+var Rectangle = Platform.OS === 'web' ? styled$2.div(_templateObject2(), mixin) : styled.View(_templateObject3(), mixin); // $FlowFixMe
 
 Rectangle.defaultProps = {
   borderColor: 'black',
-  borderWidth: 1
-};
-
-function _templateObject$1() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n"]);
-
-  _templateObject$1 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-var Box = styled(Rectangle)(_templateObject$1(), justifyContent, alignItems, flexDirection, justifySelf, alignSelf, position, zIndex); // $FlowFixMe
-
-Box.defaultProps = {
-  display: 'flex',
-  borderColor: 'none',
-  borderWidth: 0
-};
-
-var getSize = function getSize(size) {
-  return size ? {
-    height: size,
-    width: size
-  } : {};
-};
-
-var BoxContainer = function BoxContainer(_ref) {
-  var onClick = _ref.onClick,
-      size = _ref.size,
-      center = _ref.center,
-      props = _objectWithoutProperties(_ref, ["onClick", "size", "center"]);
-
-  var box = React.createElement(Box, _extends({}, getSize(size), center ? {
-    alignItems: 'center'
-  } : {}, props));
-
-  if (onClick && Platform !== 'web') {
-    return React.createElement(Touchable, {
-      onPress: function onPress() {
-        return onClick();
-      }
-    }, box);
-  }
-
-  return box;
-};
-
-BoxContainer.defaultProps = {
-  onClick: undefined,
-  size: undefined
-};
-
-var Circle = function Circle(props) {
-  return React.createElement(BoxContainer, props);
-};
-
-Circle.defaultProps = {
-  borderRadius: '50%',
-  borderColor: 'black',
-  borderWidth: 1
-};
-
-function _templateObject$2() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
-
-  _templateObject$2 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var Line = styled(Rectangle)(_templateObject$2(), opacity); // $FlowFixMe
-
-Line.defaultProps = {
-  width: 64,
-  height: 1,
-  bg: 'black',
-  borderWidth: 0
+  borderWidth: 1,
+  borderStyle: 'solid'
 };
 
 var parseAttributes = function parseAttributes() {
@@ -8782,10 +8912,185 @@ var parseAttributes = function parseAttributes() {
   return obj;
 };
 
-function _templateObject2() {
+var LayoutContext = createContext(); // const reducer = (state, action) => {
+//   const { type, payload } = action;
+//   switch (type) {
+//     case 'resize': {
+//       return {
+//         ...state,
+//       };
+//     }
+//     default: {
+//       return state;
+//     }
+//   }
+// };
+
+var LayoutProvider = function LayoutProvider(_ref) {
+  var breakpoint = _ref.breakpoint,
+      children = _ref.children;
+  // const [state, dispatch] = Platform.OS === 'sketch' ? [{
+  //   ...initialState,
+  //   breakpoint,
+  // }, () => {}] : useReducer(reducer, initialState);
+  var state = {
+    breakpoint: breakpoint
+  };
+
+  var dispatch = function dispatch() {};
+
+  var value = {
+    state: state,
+    dispatch: dispatch
+  };
+  return React.createElement(LayoutContext.Provider, {
+    value: value
+  }, children);
+};
+
+var LayoutContextConsumer = LayoutContext.Consumer;
+
+function _templateObject$1() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n  ", "\n"]);
+
+  _templateObject$1 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Box = styled$1(Rectangle)(_templateObject$1(), justifyContent, alignItems, flexDirection, justifySelf, alignSelf, position, zIndex); // $FlowFixMe
+
+Box.defaultProps = {
+  display: 'flex',
+  flexDirection: 'column',
+  borderColor: 'none',
+  borderStyle: 'solid',
+  borderWidth: 0
+};
+
+var getSize = function getSize(size) {
+  return size ? {
+    height: size,
+    width: size
+  } : {};
+};
+
+var BoxContainer = function BoxContainer(_ref) {
+  var rawP = _ref.p,
+      onClick = _ref.onClick,
+      size = _ref.size,
+      center = _ref.center,
+      asElement = _ref.as,
+      value = _ref.value,
+      props = _objectWithoutProperties(_ref, ["p", "onClick", "size", "center", "as", "value"]);
+
+  var att = parseAttributes(Platform.OS === 'web' && asElement && {
+    as: asElement
+  });
+  var breakpoint = value.state.breakpoint;
+  var p = Array.isArray(rawP) // eslint-disable-line
+  ? breakpoint > rawP.length - 1 ? rawP[rawP.length - 1] : rawP[breakpoint] : rawP;
+  var box = React.createElement(Box, _extends({}, getSize(size), {
+    onClick: onClick,
+    p: p
+  }, center ? {
+    alignItems: 'center'
+  } : {}, att, props));
+
+  if (onClick && Platform.OS !== 'web') {
+    return React.createElement(Touchable, {
+      onPress: function onPress() {
+        return onClick();
+      }
+    }, box);
+  }
+
+  return box;
+};
+
+var withContext = function withContext(Component) {
+  return function (props) {
+    return React.createElement(LayoutContext.Consumer, null, function (value) {
+      return React.createElement(Component, _extends({}, props, {
+        value: value
+      }));
+    });
+  };
+};
+
+BoxContainer.defaultProps = {
+  onClick: undefined,
+  size: undefined
+};
+var Box$1 = withContext(BoxContainer);
+
+var Circle = function Circle(props) {
+  if (Platform.OS === 'sketch') {
+    var size = props.size,
+        borderColor = props.borderColor,
+        borderRadius = props.borderRadius,
+        borderWidth = props.borderWidth,
+        bg = props.bg,
+        boxProps = _objectWithoutProperties(props, ["size", "borderColor", "borderRadius", "borderWidth", "bg"]);
+
+    var fill = themeGet("colors.".concat(bg), 'green')(props);
+    return React.createElement(Box$1, boxProps, React.createElement(Svg, {
+      height: size,
+      width: size
+    }, React.createElement(Circle$2, {
+      cx: borderRadius,
+      cy: borderRadius,
+      r: borderRadius,
+      fill: fill,
+      stroke: borderColor,
+      strokeWidth: borderWidth
+    })));
+  }
+
+  return React.createElement(Box$1, props);
+};
+
+Circle.defaultProps = {
+  size: 32,
+  borderRadius: '50%',
+  borderColor: 'black',
+  borderWidth: 1
+};
+var Circle$1 = withTheme(Circle);
+
+function _templateObject$2() {
   var data = _taggedTemplateLiteral(["\n  ", "\n"]);
 
-  _templateObject2 = function _templateObject2() {
+  _templateObject$2 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Line = styled$1(Rectangle)(_templateObject$2(), opacity); // $FlowFixMe
+
+Line.defaultProps = {
+  width: 64,
+  height: 1,
+  bg: 'black',
+  borderWidth: 0
+};
+
+function _templateObject3$1() {
+  var data = _taggedTemplateLiteral(["", ""]);
+
+  _templateObject3$1 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$1() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject2$1 = function _templateObject2() {
     return data;
   };
 
@@ -8801,21 +9106,27 @@ function _templateObject$3() {
 
   return data;
 }
-var mixin = css(_templateObject$3(), fontSize, fontFamily, textColor, textAlign, textStyle, fontWeight, fontSize, fontStyle, space, letterSpacing, lineHeight, alignSelf, justifySelf, flex, opacity);
-var Text = styled.Text(_templateObject2(), mixin);
+var mixin$1 = css$1(_templateObject$3(), fontSize, fontFamily, textColor, textAlign, textStyle, fontWeight, fontSize, fontStyle, space, letterSpacing, lineHeight, alignSelf, justifySelf, flex, opacity);
+var Text = Platform.OS === 'web' ? styled$2.p(_templateObject2$1(), mixin$1) : styled.Text(_templateObject3$1(), mixin$1);
 
 var TextContainer = function TextContainer(_ref) {
   var bold = _ref.bold,
       center = _ref.center,
-      props = _objectWithoutProperties(_ref, ["bold", "center"]);
+      asElement = _ref.as,
+      lineHeightCopy = _ref.lineHeight,
+      props = _objectWithoutProperties(_ref, ["bold", "center", "as", "lineHeight"]);
 
   var att = parseAttributes(bold && {
     fontWeight: 'bold'
   }, center && {
     textAlign: 'center'
   }, // eslint-disable-next-line react/destructuring-assignment
-  props.fontSize && !props.lineHeight && {
-    lineHeight: props.fontSize
+  props.fontSize && !lineHeightCopy && {
+    lineHeight: Platform.OS === 'web' ? "".concat(props.fontSize, "px") : props.fontSize
+  }, Platform.OS === 'web' && asElement && {
+    as: asElement
+  }, Platform.OS === 'web' && typeof lineHeightCopy === 'string' && !lineHeightCopy.includes('px') && {
+    lineHeight: "".concat(lineHeightCopy, "px")
   });
   return React.createElement(Text, _extends({}, att, props));
 };
@@ -8863,20 +9174,16 @@ ImageContainer.defaultProps = {
   src: undefined
 };
 
-var ButtonComp = BoxContainer;
+function _templateObject$5() {
+  var data = _taggedTemplateLiteral([""]);
 
-if (Platform.OS === 'web') {
-  ButtonComp = function ButtonComp(props) {
-    return React.createElement(BoxContainer, _extends({
-      as: "button"
-    }, props));
+  _templateObject$5 = function _templateObject() {
+    return data;
   };
+
+  return data;
 }
-
-var Button = function Button(props) {
-  return React.createElement(ButtonComp, props);
-};
-
+var Button = styled$1(Box$1)(_templateObject$5());
 Button.defaultProps = {
   borderWidth: 1,
   p: 3,
@@ -8904,78 +9211,37 @@ HeadlineContainer.defaultProps = {
   fontFamily: 'primary'
 };
 
-var core_sketch = createCommonjsModule(function (module, exports) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-
-var _react = _interopRequireDefault(React);
-
-
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-var Input = function Input(_ref) {
-  var value = _ref.value,
-      placeholder = _ref.placeholder,
-      props = _objectWithoutProperties(_ref, ["value", "placeholder"]);
-
-  return _react["default"].createElement(reactPrimitives.Text, props, placeholder || value);
-};
-
-Input.defaultProps = {
-  style: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#000000'
-  }
-};
-var _default = Input;
-exports["default"] = _default;
-});
-
-unwrapExports(core_sketch);
-
-var lib$1 = createCommonjsModule(function (module, exports) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return _core["default"];
-  }
-});
-
-var _core = _interopRequireDefault(core_sketch);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-});
-
-var PrimitiveInput = unwrapExports(lib$1);
-
-function _templateObject$5() {
+function _templateObject$6() {
   var data = _taggedTemplateLiteral(["\n  ", "\n"]);
 
-  _templateObject$5 = function _templateObject() {
+  _templateObject$6 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Input$1 = styled(PrimitiveInput)(_templateObject$5(), mixin);
 
-var TextInput = function TextInput(_ref) {
-  var level = _ref.level,
-      bold = _ref.bold,
-      center = _ref.center,
-      props = _objectWithoutProperties(_ref, ["level", "bold", "center"]);
+var Input$1 = function Input(_ref) {
+  var value = _ref.value,
+      placeholder = _ref.placeholder,
+      props = _objectWithoutProperties(_ref, ["value", "placeholder"]);
+
+  return React.createElement(Text$1, props, placeholder || value);
+};
+
+Input$1.defaultProps = {
+  style: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#000000'
+  }
+};
+var StyledInput = styled(Input$1)(_templateObject$6(), mixin$1);
+
+var TextInput = function TextInput(_ref2) {
+  var level = _ref2.level,
+      bold = _ref2.bold,
+      center = _ref2.center,
+      props = _objectWithoutProperties(_ref2, ["level", "bold", "center"]);
 
   // const att = parseAttributes(
   //   // level && { fontSize: getSize[level] },
@@ -8988,7 +9254,7 @@ var TextInput = function TextInput(_ref) {
   props.fontSize && !props.lineHeight && {
     lineHeight: props.fontSize
   });
-  return React.createElement(Input$1, _extends({}, att, props));
+  return React.createElement(StyledInput, _extends({}, att, props));
 };
 
 TextInput.defaultProps = {
@@ -9001,7 +9267,7 @@ var Row = function Row(_ref) {
       wrap = _ref.wrap,
       props = _objectWithoutProperties(_ref, ["center", "wrap"]);
 
-  return React.createElement(BoxContainer, _extends({}, center ? {
+  return React.createElement(Box$1, _extends({}, center ? {
     justifyContent: 'center'
   } : {}, wrap ? {
     flexWrap: 'wrap'
@@ -9014,4 +9280,12 @@ Row.defaultProps = {
   wrap: false
 };
 
-export { ComponentLibThemeProvider as ThemeProvider, styled, Circle, Rectangle, Line, BoxContainer as Box, TextContainer as Text, ImageContainer as Image, Button, HeadlineContainer as Headline, TextInput, Row };
+var useLayout = function useLayout() {
+  var _useContext = useContext(LayoutContext),
+      _useContext2 = _slicedToArray(_useContext, 1),
+      state = _useContext2[0];
+
+  return state;
+};
+
+export { ComponentLibThemeProvider as ThemeProvider, styled, Circle$1 as Circle, Rectangle, Line, Box$1 as Box, TextContainer as Text, ImageContainer as Image, Button, HeadlineContainer as Headline, TextInput, Row, LayoutProvider, useLayout };

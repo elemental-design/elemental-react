@@ -1,6 +1,8 @@
 // @flow
 import React, { type ComponentType } from 'react';
-import styled, { css } from 'styled-components/primitives';
+import { Platform } from 'react-primitives';
+import styled, { css } from 'styled-components';
+import styledP from 'styled-components/primitives';
 import {
   fontSize, fontFamily, textColor, textAlign, lineHeight,
   textStyle, fontWeight, fontStyle, space, letterSpacing,
@@ -44,19 +46,24 @@ export const mixin = css`
   ${opacity}
 `;
 
-const Text: ComponentType<Props> = styled.Text`
+const Text: ComponentType<Props> = Platform.OS === 'web' ? styled.p`
   ${mixin}
-`;
+` : styledP.Text`${mixin}`;
 
-const TextContainer = ({ bold, center, ...props }: {
+const TextContainer = ({
+  bold, center, as: asElement, lineHeight: lineHeightCopy, ...props
+}: {
   ...Props,
   bold?: boolean,
+  as?: string,
   center?: boolean,
 }) => {
   const att = parseAttributes(
     bold && { fontWeight: 'bold' },
     center && { textAlign: 'center' }, // eslint-disable-next-line react/destructuring-assignment
-    props.fontSize && !props.lineHeight && { lineHeight: props.fontSize },
+    props.fontSize && !lineHeightCopy && { lineHeight: Platform.OS === 'web' ? `${props.fontSize}px` : props.fontSize },
+    Platform.OS === 'web' && asElement && { as: asElement },
+    Platform.OS === 'web' && typeof lineHeightCopy === 'string' && !lineHeightCopy.includes('px') && { lineHeight: `${lineHeightCopy}px` },
   );
 
   return (

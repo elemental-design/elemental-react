@@ -1,14 +1,16 @@
 // @flow
 import React, { type ElementProps, type ComponentType } from 'react';
 import { Platform, Touchable } from 'react-primitives';
-import styled from 'styled-components/primitives';
 import {
   justifyContent, alignItems, flexDirection, alignSelf, justifySelf, position, zIndex,
 } from 'styled-system';
 
-import Rectangle from '../Rectangle';
+import styled from '../../styled';
 
-// const Box = (props: ElementProps<typeof Rectangle>) => <Rectangle {...props} />;
+import Rectangle from '../Rectangle';
+import { parseAttributes } from '../../utils';
+import { LayoutContext } from '../../LayoutProvider';
+
 type BoxProps = ElementProps<typeof Rectangle> & {
   justifyContent?: mixed,
   justifySelf?: mixed,
@@ -32,7 +34,9 @@ const Box: ComponentType<BoxProps> = styled(Rectangle)`
 // $FlowFixMe
 Box.defaultProps = {
   display: 'flex',
+  flexDirection: 'column',
   borderColor: 'none',
+  borderStyle: 'solid',
   borderWidth: 0,
 };
 
@@ -42,20 +46,37 @@ type Props = {
   onClick?: () => void,
   size?: number,
   center?: boolean,
+  as?: string,
+  p?: number,
+  value: { state: { breakpoint: number }},
 };
 
 const BoxContainer = ({
-  onClick, size, center, ...props
+  p: rawP, onClick, size, center, as: asElement, value, ...props
 }: Props) => {
+  const att = parseAttributes(
+    Platform.OS === 'web' && asElement && { as: asElement },
+  );
+  const { breakpoint } = value.state;
+
+  const p = Array.isArray(rawP) // eslint-disable-line
+    ? breakpoint > (rawP.length - 1)
+      ? rawP[rawP.length - 1]
+      : rawP[breakpoint]
+    : rawP;
+
   const box = (
     <Box
       {...getSize(size)}
+      onClick={onClick}
+      p={p}
       {...(center ? { alignItems: 'center' } : {})}
+      {...att}
       {...props}
     />
   );
 
-  if (onClick && Platform !== 'web') {
+  if (onClick && Platform.OS !== 'web') {
     return (
       <Touchable onPress={() => onClick()}>
         {box}
@@ -66,9 +87,15 @@ const BoxContainer = ({
   return box;
 };
 
+const withContext = Component => (props: Props) => (
+  <LayoutContext.Consumer>
+    {value => <Component {...props} value={value} />}
+  </LayoutContext.Consumer>
+);
+
 BoxContainer.defaultProps = {
   onClick: undefined,
   size: undefined,
 };
 
-export default BoxContainer;
+export default withContext(BoxContainer);

@@ -36,3 +36,7 @@ export const borderRightColor = style({
   prop: 'borderRightColor',
   cssProperty: 'border-right-color',
 });
+export const borderStyle = style({
+  prop: 'borderStyle',
+  cssProperty: 'border-style',
+});

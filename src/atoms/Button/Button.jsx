@@ -1,16 +1,12 @@
 // @flow
 import React, { type ElementProps } from 'react';
-import { Platform } from 'react-primitives';
+
+import styled from '../../styled';
 
 import Box from '../Box';
 
-let ButtonComp = Box;
 
-if (Platform.OS === 'web') {
-  ButtonComp = (props: ElementProps<typeof Box>) => <Box as="button" {...props} />;
-}
-
-const Button = (props: ElementProps<typeof Box>) => <ButtonComp {...props} />;
+const Button = styled(Box)``;
 
 Button.defaultProps = {
   borderWidth: 1,

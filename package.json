@@ -17,11 +17,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@styled-system/theme-get": "^5.0.18",
     "react": "^16.5.2",
     "react-art": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-native-web": "^0.9.0",
     "react-primitives": "^0.7.0",
+    "react-primitives-svg": "0.0.3",
     "react-primitives-textinput": "github:macintoshhelper/react-primitives-textinput",
     "rollup": "^1.4.0",
     "rollup-plugin-alias": "^1.5.1",
