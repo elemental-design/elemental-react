@@ -8,6 +8,13 @@ Abstraction for app presentation to speed up cross-platform UI design and develo
 
 This is an **alpha/preview** release. Please **test** comprehensively before using in **production**.
 
+**Supported React Renderers:**
+
+- `react` - React web
+- `react-native` - React Native (WIP)
+- `react-sketchapp` - React Sketch.app
+- **more** - Post an issue to suggest more! Ideally an API should exist that lets you override the primitives
+
 ## Getting Started
 
 ```sh
