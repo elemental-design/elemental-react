@@ -2,7 +2,7 @@
   "name": "elemental-react",
   "version": "0.0.1",
   "description": "Cross-platform React design elements to let you build your own design language.",
-  "main": "index.js",
+  "main": "dist/webBundle.js",
   "sketch": "dist/sketchBundle.js",
   "scripts": {
     "build": "rollup -c",
@@ -13,7 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "macintoshhelper",
   "license": "ISC",
   "dependencies": {
     "@styled-system/theme-get": "^5.0.18",
