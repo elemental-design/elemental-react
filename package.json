@@ -1,8 +1,7 @@
 {
   "name": "elemental-react",
   "version": "0.0.1",
-  "description": "",
-  "private": true,
+  "description": "Cross-platform React design elements to let you build your own design language.",
   "main": "index.js",
   "sketch": "dist/sketchBundle.js",
   "scripts": {
