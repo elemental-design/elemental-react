@@ -39,7 +39,7 @@ return (
 
 ## Example UI
 
-Should be possible to build in around an hour with live render to `react-sketchapp`:
+Quick example of a design I (a non-designer) coded up with live rendering to `react-sketchapp`:
 ![Example Blog UI](https://user-images.githubusercontent.com/6757532/63878429-7e849500-c9c1-11e9-915f-33bd0e82a3be.png)
 
 ## Related Reading
