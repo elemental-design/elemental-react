@@ -59,3 +59,8 @@ typings/
 
 # next.js build output
 .next
+
+# TODO: fix up examples
+examples
+
+lib/
