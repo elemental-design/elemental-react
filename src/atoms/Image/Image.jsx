@@ -1,12 +1,12 @@
 // @flow
 /* eslint-disable react/require-default-props */
 import React, { type ComponentType } from 'react';
-import styled from 'styled-components/primitives';
 import {
   color, border, borderRadius, borderWidth,
   borderColor, space, height, width,
   opacity, maxWidth, maxHeight,
 } from 'styled-system';
+import styled from '../../styled';
 
 type ImageProps = {
   color?: mixed,

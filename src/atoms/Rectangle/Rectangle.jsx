@@ -1,13 +1,11 @@
 // @flow
 import { type ComponentType } from 'react';
-import styledP from 'styled-components/primitives';
-import { Platform } from 'react-primitives';
-import styled, { css } from 'styled-components';
 import {
   color, border, borderRadius, borderWidth, flex, borderLeft, borderRight,
   borderColor, space, display, height, maxHeight, minHeight, width, maxWidth,
   minWidth, opacity, borderTop, borderBottom, flexWrap,
 } from 'styled-system';
+import styled, { css } from '../../styled';
 
 import {
   borderBottomColor, borderBottomWidth, borderLeftColor, borderLeftWidth,
@@ -79,9 +77,9 @@ const mixin = css`
   ${flex}
 `;
 
-const Rectangle: ComponentType<RectangleProps> = Platform.OS === 'web' ? styled.div`
+const Rectangle: ComponentType<RectangleProps> = styled.View`
   ${mixin}
-` : styledP.View`${mixin}`;
+`;
 
 
 // $FlowFixMe

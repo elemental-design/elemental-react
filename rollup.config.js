@@ -2,6 +2,7 @@ import json from 'rollup-plugin-json';
 import resolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
+// import alias from 'rollup-plugin-alias';
 
 import packageJson from './package.json';
 
@@ -29,10 +30,16 @@ export default {
     babel({
       exclude: 'node_modules/**',
     }),
+    // alias({
+    //   resolve: ['.jsx', '.js'],
+    //   entries: [
+    //     { find: '~', replacement: './src/' },
+    //   ],
+    // }),
     resolve({
       extensions: ['.mjs', '.sketch.js', '.js', '.jsx', '.json'],
     }),
     commonjs(),
   ],
-  external: ['react', 'react-native-web', 'react-dom', 'react-is', 'styled-components', 'styled-system', 'react-primitives'],
+  external: ['react', 'react-native-web', 'react-dom', 'react-is', 'styled-components', 'styled-system', 'react-primitives', 'react-primitives-svg'],
 };

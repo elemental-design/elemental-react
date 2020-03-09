@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 // @flow
 import React, { type ElementProps, type ComponentType } from 'react';
 import { Platform, Touchable } from 'react-primitives';
@@ -40,7 +41,29 @@ Box.defaultProps = {
   borderWidth: 0,
 };
 
-const getSize = size => (size ? { height: size, width: size } : {});
+const getSize = (args, breakpoint) => {
+  const { size, ...styles } = args;
+
+  if (size) {
+    styles.width = size;
+    styles.height = size;
+  }
+
+  const res = Object.keys(styles).reduce((acc, arg) => {
+    if (styles[arg]) {
+      const value = styles[arg];
+
+      acc[arg] = Array.isArray(value)
+        ? breakpoint > (value.length - 1)
+          ? value[value.length - 1]
+          : value[breakpoint]
+        : value;
+    }
+    return acc;
+  }, {});
+
+  return res;
+};
 
 type Props = {
   onClick?: () => void,
@@ -51,25 +74,32 @@ type Props = {
   value: { state: { breakpoint: number }},
 };
 
+
 const BoxContainer = ({
-  p: rawP, onClick, size, center, as: asElement, value, ...props
+  p, pl, pr, pt, pb,
+  m, ml, mr, mt, mb,
+  onClick, size, width, flex,
+  height, center, as: asElement,
+  value, ...props
 }: Props) => {
   const att = parseAttributes(
     Platform.OS === 'web' && asElement && { as: asElement },
   );
   const { breakpoint } = value.state;
 
-  const p = Array.isArray(rawP) // eslint-disable-line
-    ? breakpoint > (rawP.length - 1)
-      ? rawP[rawP.length - 1]
-      : rawP[breakpoint]
-    : rawP;
+  // const p = Array.isArray(rawP) // eslint-disable-line
+  //   ? breakpoint > (rawP.length - 1)
+  //     ? rawP[rawP.length - 1]
+  //     : rawP[breakpoint]
+  //   : rawP;
 
   const box = (
     <Box
-      {...getSize(size)}
+      {...getSize({
+        size, width, height, p, pl, pr, pt, pb, m, ml, mr, mt, mb, flex,
+      }, breakpoint)}
       onClick={onClick}
-      p={p}
+      // p={p}
       {...(center ? { alignItems: 'center' } : {})}
       {...att}
       {...props}

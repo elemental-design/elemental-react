@@ -1,15 +1,39 @@
 // @flow
 import React, { type ElementProps } from 'react';
 
-import styled from '../../styled';
-
 import Box from '../Box';
+import Text from '../Text';
+import { parseAttributes } from '../../utils';
+import { useDesign, withDesign, withStyles } from '../../ThemeProvider';
+
+type Props = {
+  children: Node,
+  outlined?: boolean,
+};
 
 
-const Button = styled(Box)``;
+const Button = (rawProps: ElementProps<typeof Box> & Props) => {
+  const design = useDesign('Button');
+  const props: Props = {
+    ...rawProps,
+    ...design,
+  };
+  const { outlined, children, ...styles } = props;
+  const { borderWidth = 1 } = props;
+
+  const attributes = parseAttributes(
+    outlined && { borderWidth },
+  );
+
+  return (
+    <Box {...attributes} {...design} {...styles}>
+      {children}
+    </Box>
+  );
+};
 
 Button.defaultProps = {
-  borderWidth: 1,
+  outlined: true,
   p: 3,
   pl: 4,
   pr: 4,
@@ -17,5 +41,14 @@ Button.defaultProps = {
   justifyContent: 'center',
   alignItems: 'center',
 };
+Button.displayName = 'Button';
+
+const ButtonText = withStyles(Text, {
+  fontFamily: 'button',
+  fontSize: 'button',
+});
+ButtonText.displayName = 'ButtonText';
+
+Button.Text = withDesign(ButtonText);
 
 export default Button;

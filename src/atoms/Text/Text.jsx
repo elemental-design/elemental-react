@@ -1,13 +1,12 @@
 // @flow
 import React, { type ComponentType } from 'react';
 import { Platform } from 'react-primitives';
-import styled, { css } from 'styled-components';
-import styledP from 'styled-components/primitives';
 import {
-  fontSize, fontFamily, textColor, textAlign, lineHeight,
+  fontSize, fontFamily, textColor, textAlign, lineHeight as styledLineHeight,
   textStyle, fontWeight, fontStyle, space, letterSpacing,
-  alignSelf, justifySelf, flex, opacity,
+  alignSelf, justifySelf, flex, opacity, style,
 } from 'styled-system';
+import styled, { css } from '../../styled';
 
 import { parseAttributes } from '../../utils';
 
@@ -20,6 +19,7 @@ export type Props = {|
   fontWeight?: mixed,
   fontStyle?: mixed,
   space?: mixed,
+  textTransform?: mixed,
   letterSpacing?: mixed,
   lineHeight?: mixed,
   alignSelf?: mixed,
@@ -27,6 +27,11 @@ export type Props = {|
   flex?: mixed,
   opacity?: mixed,
 |};
+
+const textTransform = style({
+  prop: 'textTransform',
+  cssProperty: 'textTransform',
+});
 
 export const mixin = css`
   ${fontSize}
@@ -39,19 +44,26 @@ export const mixin = css`
   ${fontStyle}
   ${space}
   ${letterSpacing}
-  ${lineHeight}
+  ${textTransform}
+  ${styledLineHeight}
   ${alignSelf}
   ${justifySelf}
   ${flex}
   ${opacity}
 `;
 
-const Text: ComponentType<Props> = Platform.OS === 'web' ? styled.p`
-  ${mixin}
-` : styledP.Text`${mixin}`;
+const Text: ComponentType<Props> = styled.Text`${mixin}`;
+
+const parseLineHeight = (lineHeight: string) => {
+  if (Platform.OS === 'web') {
+    return Number.isNaN(Number(lineHeight)) ? lineHeight : `${lineHeight}px`;
+  }
+
+  return lineHeight;
+};
 
 const TextContainer = ({
-  bold, center, as: asElement, lineHeight: lineHeightCopy, ...props
+  bold, center, as: asElement, lineHeight, bt, ...props
 }: {
   ...Props,
   bold?: boolean,
@@ -59,11 +71,20 @@ const TextContainer = ({
   center?: boolean,
 }) => {
   const att = parseAttributes(
-    bold && { fontWeight: 'bold' },
-    center && { textAlign: 'center' }, // eslint-disable-next-line react/destructuring-assignment
-    props.fontSize && !lineHeightCopy && { lineHeight: Platform.OS === 'web' ? `${props.fontSize}px` : props.fontSize },
-    Platform.OS === 'web' && asElement && { as: asElement },
-    Platform.OS === 'web' && typeof lineHeightCopy === 'string' && !lineHeightCopy.includes('px') && { lineHeight: `${lineHeightCopy}px` },
+    bold && {
+      fontWeight: 'bold',
+      as: Platform.OS === 'web' ? 'strong' : undefined,
+    },
+    center && {
+      textAlign: 'center',
+    },
+    lineHeight && {
+      lineHeight: parseLineHeight(lineHeight),
+    }, // eslint-disable-next-line react/destructuring-assignment
+    props.fontSize && !lineHeight && { // eslint-disable-next-line react/destructuring-assignment
+      lineHeight: parseLineHeight(props.fontSize),
+    },
+    // bt && { mt: bt - props.fontSize },
   );
 
   return (
@@ -76,7 +97,7 @@ const TextContainer = ({
 
 TextContainer.defaultProps = {
   fontSize: 16, // eslint-disable-line react/default-props-match-prop-types
-  fontFamily: 'secondary',
+  fontFamily: 'primary',
   bold: undefined,
   center: undefined,
 };

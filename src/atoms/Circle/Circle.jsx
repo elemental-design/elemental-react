@@ -1,7 +1,7 @@
 // @flow
 import React, { type ElementProps } from 'react';
 import { Platform } from 'react-primitives';
-import { withTheme } from 'styled-components/primitives';
+import { withTheme } from '../../styled';
 import { themeGet } from '@styled-system/theme-get';
 import { Svg, Circle as SvgCircle } from 'react-primitives-svg';
 
@@ -50,8 +50,8 @@ const Circle = (props: ElementProps<typeof Box> & Props) => {
 Circle.defaultProps = {
   size: 32,
   borderRadius: '50%',
-  borderColor: 'black',
-  borderWidth: 1,
+  // borderColor: 'black',
+  borderWidth: 0,
 };
 
 export default withTheme(Circle);
