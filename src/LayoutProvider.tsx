@@ -5,7 +5,7 @@ import React, {
 } from 'react';
 // import Platform from 'react-primitives';
 
-interface State {
+export interface State {
   breakpoint: number,
 };
 

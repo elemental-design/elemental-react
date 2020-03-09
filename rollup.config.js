@@ -20,7 +20,7 @@ const getPlugins = (platform) => [
 
 const output = {
   // file: 'dist/bundle.esm.js',
-  file: './dist/webBundle.js',
+  file: packageJson.main,
   format: 'esm',
   name: packageJson.name,
   globals: {
@@ -47,7 +47,7 @@ export default [
     output: [
       {
         ...output,
-        file: './dist/sketchBundle.js',
+        file: packageJson.sketch,
         // plugins: getPlugins('sketch'),
       }
     ],

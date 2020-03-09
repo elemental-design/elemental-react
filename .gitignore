@@ -62,3 +62,5 @@ typings/
 
 # TODO: fix up examples
 examples
+
+lib/
