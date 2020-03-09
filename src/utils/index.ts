@@ -1,8 +1,7 @@
-// @flow
-export const parseAttributes = (...tests: mixed[]) => {
+export const parseAttributes = (...tests: any[]) => {
   let obj = {};
 
-  tests.filter(i => i).forEach((test: mixed) => {
+  tests.filter(i => i).forEach((test: any) => {
     if (typeof test === 'object') {
       obj = {
         ...obj,

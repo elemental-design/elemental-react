@@ -1,5 +1,5 @@
 // @flow
-import React, { type ElementProps } from 'react';
+import React, { ComponentProps } from 'react';
 import { Platform } from 'react-primitives';
 import { withTheme } from '../../styled';
 import { themeGet } from '@styled-system/theme-get';
@@ -15,7 +15,7 @@ type Props = {
   bg: string,
 };
 
-const Circle = (props: ElementProps<typeof Box> & Props) => {
+const Circle = (props: ComponentProps<typeof Box> & Props) => {
   if (Platform.OS === 'sketch') {
     const {
       size, borderColor, borderRadius, borderWidth, bg, ...boxProps

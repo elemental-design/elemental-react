@@ -1,9 +1,9 @@
 /* eslint-disable no-nested-ternary */
 // @flow
-import React, { type ElementProps, type ComponentType } from 'react';
+import React, { ComponentProps, ComponentType, ReactNode } from 'react';
 import { Platform, Touchable } from 'react-primitives';
 import {
-  justifyContent, alignItems, flexDirection, alignSelf, justifySelf, position, zIndex,
+  justifyContent, alignItems, flexDirection, alignSelf, justifySelf, position, zIndex, SpaceProps, FlexboxProps, PositionProps, FlexDirectionProps,
 } from 'styled-system';
 
 import styled from '../../styled';
@@ -12,27 +12,14 @@ import Rectangle from '../Rectangle';
 import { parseAttributes } from '../../utils';
 import { LayoutContext } from '../../LayoutProvider';
 
-type BoxProps = ElementProps<typeof Rectangle> & {
-  justifyContent?: mixed,
-  justifySelf?: mixed,
-  alignSelf?: mixed,
-  alignItems?: mixed,
-  flexDirection?: mixed,
-  position?: mixed,
-  zIndex?: mixed,
+type BoxProps = ComponentProps<typeof Rectangle> & PositionProps & {
+  onClick?: () => any,
 };
 
 const Box: ComponentType<BoxProps> = styled(Rectangle)`
-  ${justifyContent}
-  ${alignItems}
-  ${flexDirection}
-  ${justifySelf}
-  ${alignSelf}
   ${position}
-  ${zIndex}
 `;
 
-// $FlowFixMe
 Box.defaultProps = {
   display: 'flex',
   flexDirection: 'column',
@@ -41,7 +28,9 @@ Box.defaultProps = {
   borderWidth: 0,
 };
 
-const getSize = (args, breakpoint) => {
+type Styles = { size: number, [key: string]: any };
+
+const getSize = (args: Styles, breakpoint: number) => {
   const { size, ...styles } = args;
 
   if (size) {
@@ -49,7 +38,7 @@ const getSize = (args, breakpoint) => {
     styles.height = size;
   }
 
-  const res = Object.keys(styles).reduce((acc, arg) => {
+  const res = Object.keys(styles).reduce((acc: { [key: string]: any }, arg) => {
     if (styles[arg]) {
       const value = styles[arg];
 
@@ -65,13 +54,14 @@ const getSize = (args, breakpoint) => {
   return res;
 };
 
-type Props = {
+type Props = BoxProps & {
   onClick?: () => void,
   size?: number,
+  name?: string, // react-sketchapp
   center?: boolean,
   as?: string,
   p?: number,
-  value: { state: { breakpoint: number }},
+  children?: ReactNode,
 };
 
 
@@ -81,7 +71,9 @@ const BoxContainer = ({
   onClick, size, width, flex,
   height, center, as: asElement,
   value, ...props
-}: Props) => {
+}: Props & {
+  value: { state: { breakpoint: number } }
+}) => {
   const att = parseAttributes(
     Platform.OS === 'web' && asElement && { as: asElement },
   );
@@ -117,11 +109,13 @@ const BoxContainer = ({
   return box;
 };
 
-const withContext = Component => (props: Props) => (
-  <LayoutContext.Consumer>
-    {value => <Component {...props} value={value} />}
-  </LayoutContext.Consumer>
-);
+function withContext<T extends { value: { state: { breakpoint: number } } }>(Component: ComponentType<T>) {
+  return (props: Omit<T, "value">) => (
+    <LayoutContext.Consumer>
+      {value => <Component {...props as T} value={value} />}
+    </LayoutContext.Consumer>
+  );
+};
 
 BoxContainer.defaultProps = {
   onClick: undefined,

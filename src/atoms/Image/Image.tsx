@@ -1,39 +1,23 @@
-// @flow
 /* eslint-disable react/require-default-props */
-import React, { type ComponentType } from 'react';
+import React, { ComponentType } from 'react';
 import {
   color, border, borderRadius, borderWidth,
   borderColor, space, height, width,
-  opacity, maxWidth, maxHeight,
+  opacity, maxWidth, maxHeight, ColorProps, BorderProps, SpaceProps, layout, LayoutProps,
 } from 'styled-system';
 import styled from '../../styled';
 
-type ImageProps = {
-  color?: mixed,
-  border?: mixed,
-  borderRadius?: mixed,
-  borderColor?: mixed,
-  borderWidth?: mixed,
-  space?: mixed,
-  height?: mixed,
-  maxHeight?: mixed,
-  width?: mixed,
-  maxWidth?: mixed,
-  opacity?: mixed,
+type ImageProps = ColorProps & BorderProps & SpaceProps & LayoutProps & {
+  source: {
+    uri: string,
+  }
 };
 
 const Image: ComponentType<ImageProps> = styled.Image`
   ${color}
   ${border}
-  ${borderRadius}
-  ${borderColor}
-  ${borderWidth}
   ${space}
-  ${height}
-  ${maxHeight}
-  ${width}
-  ${maxWidth}
-  ${opacity}
+  ${layout}
 `;
 
 // $FlowFixMe

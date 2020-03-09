@@ -9,6 +9,7 @@ import styledP, {
   ThemeProvider as ThemeProviderP,
   css as cssP,
   withTheme as withThemeP,
+  // @ts-ignore
 } from 'styled-components/primitives';
 
 import { Platform } from 'react-primitives';

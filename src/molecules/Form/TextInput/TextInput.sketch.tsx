@@ -1,6 +1,6 @@
 // @flow
 /* eslint-disable react/jsx-filename-extension */
-import React, { type ElementProps } from 'react';
+import React, { ComponentProps } from 'react';
 
 import { Box, Text } from '../../../atoms';
 
@@ -12,13 +12,13 @@ const TextInput = ({
   color,
   children,
   ...props
-}: ElementProps<typeof Box> & {|
+}: ComponentProps<typeof Box> & {
   placeholder?: string,
   value?: string,
   fontSize?: string,
   fontFamily?: string,
   color?: string,
-|}) => (
+}) => (
   <Box name="TextInput" flex={1} {...props}>
     <Text
       fontSize={fontSize}

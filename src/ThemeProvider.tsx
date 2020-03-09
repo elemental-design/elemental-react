@@ -1,5 +1,5 @@
 // @flow
-import React, { type Node, createContext, useContext } from 'react';
+import React, { ReactNode, createContext, useContext, ComponentType } from 'react';
 // import { Platform } from 'react-primitives';
 import { ThemeProvider } from './styled';
 // import { ThemeProvider as ThemeProviderPrimitives } from 'styled-components/primitives';
@@ -25,7 +25,12 @@ const baseTheme = {
   lineHeights: {},
 };
 
-const DesignContext = createContext({});
+const DesignContext = createContext<{
+  state: any,
+  dispatch?: any,
+}>({
+  state: {}
+});
 
 export const useDesign = (name: string) => {
   const { state } = useContext(DesignContext);
@@ -34,27 +39,33 @@ export const useDesign = (name: string) => {
   return design[name] || {};
 };
 
-export const withStyles = (Component, styles) => props => (
-  <Component {...styles} {...props} />
-);
+interface WithStylesProps { [key: string]: any };
 
-export const withDesign = Component => (props: Props) => (
-  <DesignContext.Consumer>
-    {(value) => {
-      const { state } = value;
-      const { design = {} } = state || {};
-      return (
-        <Component
-          {...(design[Component.displayName] ? design[Component.displayName] : {})}
-          {...props}
-        />
-      );
-    }}
-  </DesignContext.Consumer>
-);
+export function withStyles<T>(Component: ComponentType<T>, styles: any): ComponentType<T> {
+  return (props: T) => (
+    <Component {...styles} {...props} />
+  );
+};
+
+export function withDesign<T>(Component: ComponentType<T>): ComponentType<T> {
+  return (props: T) => (
+    <DesignContext.Consumer>
+      {(value) => {
+        const { state } = value;
+        const { design = {} } = state || {};
+        return (
+          <Component
+            {...(design[Component.displayName] ? design[Component.displayName] : {})}
+            {...props}
+          />
+        );
+      }}
+    </DesignContext.Consumer>
+  );
+};
 
 const DesignProvider = ({ design, children }: {
-  design: { [string]: mixed },
+  design: { [key: string]: any },
   children: Node,
 }) => {
   const state = { design };
@@ -71,7 +82,7 @@ const DesignProvider = ({ design, children }: {
 const ComponentLibThemeProvider = ({
   design = {}, theme = baseTheme, children, ...props
 }: {
-  design: { [string]: mixed },
+  design: { [key: string]: any },
   theme: typeof baseTheme,
   children: Node,
 }) => (

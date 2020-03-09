@@ -1,5 +1,5 @@
 // @flow
-import React, { type ElementProps } from 'react';
+import React, { ComponentProps } from 'react';
 
 import Box from '../Box';
 import Text from '../Text';
@@ -12,9 +12,9 @@ type Props = {
 };
 
 
-const Button = (rawProps: ElementProps<typeof Box> & Props) => {
+const Button = (rawProps: ComponentProps<typeof Box> & Props) => {
   const design = useDesign('Button');
-  const props: Props = {
+  const props: ComponentProps<typeof Box> & Props = {
     ...rawProps,
     ...design,
   };
@@ -46,6 +46,7 @@ Button.displayName = 'Button';
 const ButtonText = withStyles(Text, {
   fontFamily: 'button',
   fontSize: 'button',
+  mb: 0,
 });
 ButtonText.displayName = 'ButtonText';
 

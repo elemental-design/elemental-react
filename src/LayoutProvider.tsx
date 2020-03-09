@@ -1,17 +1,27 @@
 // @flow
 import React, {
   createContext,
-  type Node as ReactNode,
+  ReactNode,
 } from 'react';
 // import Platform from 'react-primitives';
 
-
-const initialState = {
-  breakpoint: 0, // 0 is mobile, 1 is tablet, 2 is desktop
+interface State {
+  breakpoint: number,
 };
 
-// $FlowFixMe
-const LayoutContext = createContext();
+export interface Value {
+  state: State,
+  dispatch: ({ }: { type: string, payload: Object }) => void,
+};
+
+const initialState = {
+  state: {
+    breakpoint: 0, // 0 is mobile, 1 is tablet, 2 is desktop
+  },
+  dispatch: () => {},
+};
+
+const LayoutContext = createContext<Value>(initialState);
 
 // const reducer = (state, action) => {
 //   const { type, payload } = action;
