@@ -1,5 +1,10 @@
 # Elemental React
 
+## Deprecated in favour of this library's new home:
+> https://github.com/elemental-design/elemental-react
+
+---
+
 Build UI components once, render to any platform using `react-primitives`. This library abstracts away common UI patterns for you.
 
 Abstraction for app presentation to speed up cross-platform UI design and development with code using React/Sketch as a design function. This is an underlying cross-platform abstraction wrapper that allows you to build your own design language
