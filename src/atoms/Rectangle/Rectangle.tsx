@@ -29,7 +29,6 @@ const Rectangle: ComponentType<RectangleProps> = styled.View`
 
 
 Rectangle.defaultProps = {
-  pt: 5,
   borderColor: 'black',
   borderWidth: 1,
   borderStyle: 'solid',
