@@ -1,6 +1,10 @@
 # Elemental React
 
-Build UI components once, render to any platform using `react-primitives`. This library abstracts away common UI patterns for you.
+> Build UI components once, render to any platform using `react-primitives`. This library abstracts away common UI patterns for you.
+
+[![npm](https://img.shields.io/npm/v/elemental-react.svg)](https://www.npmjs.com/package/elemental-react)
+[![npm](https://img.shields.io/npm/dt/elemental-react.svg)](https://www.npmjs.com/package/elemental-react)
+
 
 Abstraction for app presentation to speed up cross-platform UI design and development with code using React/Sketch as a design function. This is an underlying cross-platform abstraction wrapper that allows you to build your own design language
 
