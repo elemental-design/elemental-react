@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-filename-extension */
 /* globals context */
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 import * as PropTypes from 'prop-types';
 import {
   width as styledWidth, position, space, height as styledHeight,
@@ -150,7 +150,7 @@ const DocumentContainer = ({ colors }) => (
   <Document>
     <ErrorBoundary>
       <ThemeProvider theme={theme}>
-        <Fragment>
+        <>
           <Page name="App" style={{ flex: 1, flexDirection: 'column' }}>
             {routes.map(({ name: routeName, component: Comp }) => (
               <Box flexDirection="row" mb={70}>
@@ -180,7 +180,7 @@ const DocumentContainer = ({ colors }) => (
               </Box>
             </Artboard>
           </Page>
-        </Fragment>
+        </>
       </ThemeProvider>
     </ErrorBoundary>
   </Document>

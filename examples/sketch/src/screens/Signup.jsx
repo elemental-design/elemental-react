@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import { Rectangle, Box, Circle, Line, Text, Image, Button, Headline } from 'elemental-react/dist/sketchBundle.js';
+import { Rectangle, Box, Circle, Line, Text, Image, Button, Headline } from 'elemental-react';
 
-import AppBar, { MenuIcon, ActionButton } from '../components/AppBar';
+import AppBar from '../components/AppBar';
 import InputField from '../components/InputField';
 import TextInput from '../components/TextInput';
 import Select from '../components/Select';

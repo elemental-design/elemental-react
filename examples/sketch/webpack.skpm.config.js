@@ -17,6 +17,7 @@ module.exports = (config) => {
     extensions: [...config.resolve.extensions, '.jsx'],
     alias: {
       ...config.resolve.alias,
+      'react': path.resolve(__dirname, './node_modules/react/'),
       'elemental-react': path.resolve(__dirname, '../../'),
       'react-sketchapp': path.resolve(__dirname, './node_modules/react-sketchapp/'),
       'styled-components': path.resolve(__dirname, './node_modules/styled-components'),

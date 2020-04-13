@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react';
-import { Rectangle, Box, Circle, Line, Text, Image, Button, Headline } from 'elemental-react/dist/sketchBundle.js';
+import React from 'react';
+import { Box, Text, Button, Headline } from 'elemental-react';
 
 import AppBar from '../components/AppBar';
 import InputField from '../components/InputField';
 import TextInput from '../components/TextInput';
 
 const Home = () => (
-  <Fragment>
+  <>
     <Box bg="#0561f5" height={640}>
       <AppBar bg="transparent">
         <AppBar.MenuIcon />
@@ -60,7 +60,7 @@ const Home = () => (
         </Box>
       ))}
     </Box>
-  </Fragment>
+  </>
 );
 
 export default Home;

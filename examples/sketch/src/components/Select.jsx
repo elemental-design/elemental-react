@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Line, Text } from 'elemental-react/dist/sketchBundle.js';
+import { Box, Line, Text } from 'elemental-react';
 
 const Select = ({ label, placeholder, error, value = '', ...props }) => (
   <Box {...props}>
