@@ -69,7 +69,7 @@ type Props = BoxProps & {
   center?: boolean,
   as?: string,
   p?: number,
-  boxShadow?: string,
+  boxShadow?: (_: {}) => string | string,
   children?: ReactNode,
 };
 
@@ -85,7 +85,7 @@ const BoxContainer = ({
 }: Props & {
   value: { state: { breakpoint: number } }
 }) => {
-  const att = parseAttributes(
+  const att = parseAttributes<any>(
     Platform.OS === 'web' && asElement && { as: asElement },
     boxShadow && Platform.OS !== 'sketch' ? makeShadow(boxShadow) : { shadows: makeShadow(boxShadow, null, true)},
   );
