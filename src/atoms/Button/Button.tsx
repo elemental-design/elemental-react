@@ -1,34 +1,52 @@
-// @flow
-import React, { ComponentProps } from 'react';
+import React, { ComponentProps, ReactNode } from 'react';
+import { Platform } from 'react-primitives';
 
-import Box from '../Box';
+import Row from '../../molecules/Row';
 import Text from '../Text';
 import { parseAttributes } from '../../utils';
 import { useDesign, withDesign, withStyles } from '../../ThemeProvider';
 
 type Props = {
-  children: Node,
+  children: (_: Object) => ReactNode | ReactNode | string,
   outlined?: boolean,
+  label?: string,
 };
 
+const ButtonText = withStyles(Text, {
+  fontFamily: 'button',
+  fontSize: 'button',
+  mb: 0,
+});
+ButtonText.displayName = 'ButtonText';
 
-const Button = (rawProps: ComponentProps<typeof Box> & Props) => {
+const Button = (rawProps: ComponentProps<typeof Row> & Props) => {
   const design = useDesign('Button');
-  const props: ComponentProps<typeof Box> & Props = {
+  const props: ComponentProps<typeof Row> & Props & ComponentProps<typeof Text> = {
     ...rawProps,
     ...design,
   };
-  const { outlined, children, ...styles } = props;
-  const { borderWidth = 1 } = props;
+  const { outlined, children: childrenProp, disabled, styles: pseudoStyles, borderWidth = 1, label, ...styles } = props;
+  const pseudoState = Platform.OS === 'sketch' ? props.pseudoState || 'idle' : 'idle';
 
   const attributes = parseAttributes(
-    outlined && { borderWidth },
+    (outlined || (borderWidth && borderWidth !== 1)) && { borderWidth },
+    pseudoState && pseudoState !== 'idle' && { ...pseudoStyles[pseudoState] },
+    disabled && { ...pseudoStyles.disabled },
   );
+  const { color, fontSize, fontFamily } = { ...styles, ...attributes };
+
+  const children = (label || typeof childrenProp === 'string') ? (
+    <ButtonText color={color} fontSize={fontSize} fontFamily={fontFamily}>
+      {label || childrenProp}
+    </ButtonText>
+  ) : typeof childrenProp === 'function'
+      ? childrenProp({ bg: props.bg })
+      : childrenProp;
 
   return (
-    <Box {...attributes} {...design} {...styles}>
+    <Row as="button" disabled={disabled} {...design} {...styles} {...attributes}>
       {children}
-    </Box>
+    </Row>
   );
 };
 
@@ -43,12 +61,7 @@ Button.defaultProps = {
 };
 Button.displayName = 'Button';
 
-const ButtonText = withStyles(Text, {
-  fontFamily: 'button',
-  fontSize: 'button',
-  mb: 0,
-});
-ButtonText.displayName = 'ButtonText';
+
 
 Button.Text = withDesign(ButtonText);
 

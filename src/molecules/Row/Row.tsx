@@ -1,9 +1,8 @@
-// @flow
-import React from 'react';
+import React, { ComponentProps } from 'react';
 
 import { Box } from '../../atoms';
 
-const Row = ({ center, wrap, ...props }: {
+const Row = ({ center, wrap, ...props }: ComponentProps<typeof Box> & {
   center?: boolean,
   wrap?: boolean,
 }) => (

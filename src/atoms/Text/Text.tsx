@@ -18,7 +18,7 @@ const isNumber = (n: number | string) => typeof n === 'number' && !Number.isNaN(
 const getLineHeight = (n: number, scale: Object) => {
   const val = get(scale, n, n);
 
-  return Platform.OS === 'web' && isNumber(val) ? `${val}px` : val;
+  return (Platform.OS === 'web' || Platform.OS === 'figma') && isNumber(val) ? `${val}px` : val;
 };
 
 const lineHeight = system({
@@ -44,8 +44,11 @@ export const mixin = css`
   ${lineHeight}
   ${flexbox}
 `;
+  /* ${({ lineHeight }: { lineHeight: string }) => lineHeight ? `line-height: ${lineHeight};` : ''} */
 
-const Text: ComponentType<Props> = styled.Text`${mixin}`;
+const Text: ComponentType<Props> = styled.Text.withConfig({
+  shouldForwardProp: (propName: keyof Props) => !['lineHeight', 'fontSize', 'bold', 'color'].includes(propName),
+})`${mixin}`;
 
 // const parseLineHeight = (lineHeight: string) => {
 //   if (Platform.OS === 'web') {
@@ -58,6 +61,7 @@ type TextProps = Props & {
   bold?: boolean,
   as?: string,
   center?: boolean,
+  name?: string,
   children?: ReactNode,
 };
 

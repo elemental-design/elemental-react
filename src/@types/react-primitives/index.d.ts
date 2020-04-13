@@ -168,7 +168,7 @@ declare module 'react-primitives' {
 
   export const Touchable: ComponentType<TouchableOpacityProps>;
 
-  export type PlatformOSType = 'ios' | 'android' | 'web' | 'sketch' | 'vr';
+  export type PlatformOSType = 'ios' | 'android' | 'web' | 'sketch' | 'vr' | 'figma';
   export interface PlatformStatic {
     OS: PlatformOSType;
     Version: number | string;

@@ -2,6 +2,7 @@
 import React, {
   createContext,
   ReactNode,
+  ComponentType,
 } from 'react';
 // import Platform from 'react-primitives';
 
@@ -57,6 +58,14 @@ const LayoutProvider = ({ breakpoint, children }: {
   );
 };
 
+function withContext<T extends { value: { state: { breakpoint: number } } }>(Component: ComponentType<T>) {
+  return (props: Omit<T, "value">) => (
+    <LayoutContext.Consumer>
+      {value => <Component {...props as T} value={value} />}
+    </LayoutContext.Consumer>
+  );
+};
+
 const LayoutContextConsumer = LayoutContext.Consumer;
 
-export { LayoutProvider, LayoutContext, LayoutContextConsumer };
+export { LayoutProvider, LayoutContext, LayoutContextConsumer, withContext };

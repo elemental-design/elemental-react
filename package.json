@@ -4,6 +4,7 @@
   "description": "Cross-platform React design elements to let you build your own design language.",
   "types": "lib/index.d.ts",
   "main": "lib/webBundle.js",
+  "figma": "lib/main.figma.js",
   "sketch": "lib/sketchBundle.js",
   "scripts": {
     "build:js": "rollup -c",
@@ -23,7 +24,7 @@
     "react-art": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-native-web": "^0.9.0",
-    "react-primitives": "^0.7.0",
+    "react-primitives": "^0.8.1",
     "react-primitives-svg": "0.0.3",
     "react-primitives-textinput": "github:macintoshhelper/react-primitives-textinput",
     "rollup": "^2.0.2",

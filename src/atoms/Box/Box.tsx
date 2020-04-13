@@ -10,7 +10,8 @@ import styled from '../../styled';
 
 import Rectangle from '../Rectangle';
 import { parseAttributes } from '../../utils';
-import { LayoutContext } from '../../LayoutProvider';
+import { withContext } from '../../LayoutProvider';
+// import useHover from '../../hooks/use-hover';
 
 type BoxProps = ComponentProps<typeof Rectangle> & PositionProps & {
   onClick?: () => any,
@@ -23,7 +24,7 @@ const Box: ComponentType<BoxProps> = styled(Rectangle)`
 Box.defaultProps = {
   display: 'flex',
   flexDirection: 'column',
-  borderColor: 'none',
+  ...(Platform.OS !== 'figma' && { borderColor: 'none' }), // FIXME: ...
   borderStyle: 'solid',
   borderWidth: 0,
 };
@@ -54,7 +55,13 @@ const getSize = (args: Styles, breakpoint: number) => {
   return res;
 };
 
+type InteractiveState = 'idle' | 'hover' | 'focus';
+type StyleKey = 'hover' | 'focus' | 'disabled';
+
 type Props = BoxProps & {
+  styles?: { [K in StyleKey]: Object }
+  pseudoState: InteractiveState,
+  disabled?: boolean,
   onClick?: () => void,
   size?: number,
   name?: string, // react-sketchapp
@@ -65,19 +72,26 @@ type Props = BoxProps & {
 };
 
 
+
+
 const BoxContainer = ({
   p, pl, pr, pt, pb,
   m, ml, mr, mt, mb,
-  onClick, size, width, flex,
-  height, center, as: asElement,
+  onClick, size, width, flex, styles,
+  height, center, as: asElement, disabled,
   value, ...props
 }: Props & {
   value: { state: { breakpoint: number } }
 }) => {
+  // const iState = Platform.OS === 'sketch' ? props.iState || 'idle' : 'idle';
+
+  // const [hoverRef, isHovered] = useHover();
   const att = parseAttributes(
     Platform.OS === 'web' && asElement && { as: asElement },
+    // iState && iState !== 'idle' && { ...styles[iState] },
+    // disabled && { ...styles.disabled }
   );
-  const { breakpoint } = value.state;
+  const { breakpoint = 0 } = value && value.state || {};
 
   // const p = Array.isArray(rawP) // eslint-disable-line
   //   ? breakpoint > (rawP.length - 1)
@@ -93,12 +107,12 @@ const BoxContainer = ({
       onClick={onClick}
       // p={p}
       {...(center ? { alignItems: 'center' } : {})}
-      {...att}
       {...props}
+      {...att}
     />
   );
 
-  if (onClick && Platform.OS !== 'web') {
+  if (onClick && Platform.OS !== 'web' && Platform.OS !== 'figma') {
     return (
       <Touchable onPress={() => onClick()}>
         {box}
@@ -109,17 +123,11 @@ const BoxContainer = ({
   return box;
 };
 
-function withContext<T extends { value: { state: { breakpoint: number } } }>(Component: ComponentType<T>) {
-  return (props: Omit<T, "value">) => (
-    <LayoutContext.Consumer>
-      {value => <Component {...props as T} value={value} />}
-    </LayoutContext.Consumer>
-  );
-};
 
 BoxContainer.defaultProps = {
   onClick: undefined,
   size: undefined,
+  name: 'Box',
 };
 
 export default withContext(BoxContainer);

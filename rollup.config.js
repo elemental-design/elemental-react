@@ -51,7 +51,21 @@ export default [
         // plugins: getPlugins('sketch'),
       }
     ],
-    external: ['react', 'react-native-web', 'react-dom', 'react-is', 'styled-components', 'styled-system', 'react-primitives', 'react-primitives-svg'],
+    external: ['react', 'react-native-web', 'react-dom', 'react-is', 'styled-components', 'styled-components/primitives', 'styled-system', 'react-primitives', 'react-primitives-svg'],
     plugins: getPlugins('sketch')
+  },
+  // Figma export
+  {
+    input: 'src/index.ts',
+    output: [
+      {
+        ...output,
+        format: 'umd', // Figma doesn't support ES imports
+        file: packageJson.figma,
+        // plugins: getPlugins('sketch'),
+      }
+    ],
+    external: ['react', 'react-native-web', 'react-dom', 'react-is', 'styled-components', 'styled-components/primitives', 'styled-system', 'react-primitives', 'react-primitives-svg'],
+    plugins: getPlugins('figma')
   },
 ]

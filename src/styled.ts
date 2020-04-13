@@ -26,10 +26,10 @@ const withTheme = isWeb ? withThemeW : withThemeP;
 
 if (isWeb) {
   styled.View = styled.div;
-  styled.Text = styled.p;
+  styled.Text = styled.p; // Should be styled.span (and create a <Paragraph> text component with as="p")
   styled.Image = styled.img;
 }
 
-export { ThemeProvider, css, withTheme };
+export { ThemeProvider, css, withTheme, isWeb };
 
 export default styled;
