@@ -66,7 +66,7 @@ export function withDesign<T>(Component: ComponentType<T>): ComponentType<T> {
 
 const DesignProvider = ({ design, children }: {
   design: { [key: string]: any },
-  children: Node,
+  children: ReactNode,
 }) => {
   const state = { design };
   const dispatch = () => {};
@@ -84,7 +84,7 @@ const ComponentLibThemeProvider = ({
 }: {
   design: { [key: string]: any },
   theme: typeof baseTheme,
-  children: Node,
+  children: ReactNode,
 }) => (
   <ThemeProvider theme={theme} {...props}>
     <DesignProvider design={design}>
