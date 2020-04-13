@@ -34,7 +34,7 @@ const DesignContext = createContext<{
 
 export const useDesign = (name: string) => {
   const { state } = useContext(DesignContext);
-  const { design } = state;
+  const { design } = state || {};
 
   return design[name] || {};
 };

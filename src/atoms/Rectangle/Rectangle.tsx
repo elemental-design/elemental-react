@@ -1,26 +1,34 @@
 import { ComponentType } from 'react';
+import { Platform } from 'react-primitives';
 import {
-  color, border, borderRadius, borderWidth, flex, borderLeft, borderRight,
-  flexbox, layout, display, height, maxHeight, minHeight, width, maxWidth,
-  space, opacity, borderTop, borderBottom, flexWrap, BorderProps, BorderLeftProps, BorderRightProps, BorderTopProps, BorderBottomProps, BorderRadiusProps, BorderColorProps, BorderStyleProps, BorderWidthProps, LayoutProps, ColorProps, FlexboxProps, SpaceProps,
+  compose, color, border, flexbox, layout, space,
+  BorderProps, LayoutProps, ColorProps, FlexboxProps, SpaceProps, boxShadow,
 } from 'styled-system';
 import styled, { css } from '../../styled';
 
 import {
-  borderBottomColor, borderBottomWidth, borderLeftColor, borderLeftWidth,
-  borderTopColor, borderTopWidth, borderRightColor, borderRightWidth,
-  borderStyle,
+  shadowColor,
+  shadowOffset,
+  shadowOpacity,
+  shadowRadius,
+  shadowSpread,
+  shadowInner,
+  elevation,
 } from '../../utils/styles';
 
 
 type RectangleProps = BorderProps & LayoutProps & ColorProps & FlexboxProps & SpaceProps;
 
+
 const mixin = css`
-  ${space}
-  ${color}
-  ${border}
-  ${layout}
-  ${flexbox}
+  ${compose(space, color, border, layout, flexbox)}
+  ${Platform.select({
+    sketch: compose(shadowColor, shadowOffset, shadowOpacity, shadowRadius, shadowSpread, shadowInner),
+    figma: compose(shadowColor, shadowOffset, shadowOpacity, shadowRadius),
+    ios: compose(shadowColor, shadowOffset, shadowOpacity, shadowRadius),
+    android: compose(elevation),
+    web: boxShadow,
+  })}
 `;
 
 const borderPropNames = [

@@ -19,7 +19,7 @@ const TextInput = ({
   fontFamily?: string,
   color?: string,
 }) => (
-  <Box name="TextInput" flex={1} {...props}>
+  <Box name="TextInput" {...props}>
     <Text
       fontSize={fontSize}
       fontFamily={fontFamily}

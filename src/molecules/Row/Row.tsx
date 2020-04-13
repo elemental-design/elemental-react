@@ -1,6 +1,6 @@
 import React, { ComponentProps } from 'react';
 
-import { Box } from '../../atoms';
+import Box from '../../atoms/Box';
 
 const Row = ({ center, wrap, ...props }: ComponentProps<typeof Box> & {
   center?: boolean,

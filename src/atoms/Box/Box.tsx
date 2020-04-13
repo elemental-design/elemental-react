@@ -10,6 +10,7 @@ import styled from '../../styled';
 
 import Rectangle from '../Rectangle';
 import { parseAttributes } from '../../utils';
+import { makeShadow } from '../../utils/shadow';
 import { withContext } from '../../LayoutProvider';
 // import useHover from '../../hooks/use-hover';
 
@@ -59,7 +60,7 @@ type InteractiveState = 'idle' | 'hover' | 'focus';
 type StyleKey = 'hover' | 'focus' | 'disabled';
 
 type Props = BoxProps & {
-  styles?: { [K in StyleKey]: Object }
+  styles?: { [K in StyleKey]?: Object }
   pseudoState: InteractiveState,
   disabled?: boolean,
   onClick?: () => void,
@@ -68,6 +69,7 @@ type Props = BoxProps & {
   center?: boolean,
   as?: string,
   p?: number,
+  boxShadow?: string,
   children?: ReactNode,
 };
 
@@ -76,28 +78,19 @@ type Props = BoxProps & {
 
 const BoxContainer = ({
   p, pl, pr, pt, pb,
-  m, ml, mr, mt, mb,
+  m, ml, mr, mt, mb, boxShadow,
   onClick, size, width, flex, styles,
   height, center, as: asElement, disabled,
   value, ...props
 }: Props & {
   value: { state: { breakpoint: number } }
 }) => {
-  // const iState = Platform.OS === 'sketch' ? props.iState || 'idle' : 'idle';
-
-  // const [hoverRef, isHovered] = useHover();
   const att = parseAttributes(
     Platform.OS === 'web' && asElement && { as: asElement },
-    // iState && iState !== 'idle' && { ...styles[iState] },
-    // disabled && { ...styles.disabled }
+    boxShadow && Platform.OS !== 'sketch' ? makeShadow(boxShadow) : { shadows: makeShadow(boxShadow, null, true)},
   );
   const { breakpoint = 0 } = value && value.state || {};
 
-  // const p = Array.isArray(rawP) // eslint-disable-line
-  //   ? breakpoint > (rawP.length - 1)
-  //     ? rawP[rawP.length - 1]
-  //     : rawP[breakpoint]
-  //   : rawP;
 
   const box = (
     <Box
@@ -105,7 +98,6 @@ const BoxContainer = ({
         size, width, height, p, pl, pr, pt, pb, m, ml, mr, mt, mb, flex,
       }, breakpoint)}
       onClick={onClick}
-      // p={p}
       {...(center ? { alignItems: 'center' } : {})}
       {...props}
       {...att}

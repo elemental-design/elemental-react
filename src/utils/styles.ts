@@ -1,42 +1,48 @@
-import { style } from 'styled-system';
+// @ts-nocheck
+import { system } from '@styled-system/core';
 
-export const borderBottomWidth = style({
-  prop: 'borderBottomWidth',
-  cssProperty: 'border-bottom-width',
-  transformValue: n => `${n}px`,
+export const shadowColor = system({
+  shadowColor: {
+    property: 'shadowColor',
+    scale: 'shadowColors',
+  },
 });
-export const borderBottomColor = style({
-  prop: 'borderBottomColor',
-  cssProperty: 'border-bottom-color',
+export const shadowOffset = system({
+  shadowOffset: {
+    property: 'shadowOffset',
+    scale: 'shadowOffsets',
+  },
 });
-export const borderTopWidth = style({
-  prop: 'borderTopWidth',
-  cssProperty: 'border-top-width',
-  transformValue: n => `${n}px`,
+export const shadowOpacity = system({
+  shadowOpacity: {
+    property: 'shadowOpacity',
+    scale: 'shadowOpacities',
+  },
 });
-export const borderTopColor = style({
-  prop: 'borderTopColor',
-  cssProperty: 'border-top-color',
+export const shadowRadius = system({
+  shadowRadius: {
+    property: 'shadowRadius',
+    scale: 'shadowRadii',
+  },
 });
-export const borderLeftWidth = style({
-  prop: 'borderLeftWidth',
-  cssProperty: 'border-left-width',
-  transformValue: n => `${n}px`,
+export const shadowSpread = system({
+  shadowSpread: {
+    property: 'shadowSpread',
+    scale: 'shadowSpreads',
+  },
 });
-export const borderLeftColor = style({
-  prop: 'borderLeftColor',
-  cssProperty: 'border-left-color',
+
+// Sketch only
+export const shadowInner = system({
+  shadowSpread: {
+    property: 'shadowInner',
+    scale: 'shadowInners',
+  },
 });
-export const borderRightWidth = style({
-  prop: 'borderRightWidth',
-  cssProperty: 'border-right-width',
-  transformValue: n => `${n}px`,
-});
-export const borderRightColor = style({
-  prop: 'borderRightColor',
-  cssProperty: 'border-right-color',
-});
-export const borderStyle = style({
-  prop: 'borderStyle',
-  cssProperty: 'border-style',
+
+export const elevation = system({
+  elevation: {
+    property: 'elevation',
+    scale: 'elevations',
+  },
 });

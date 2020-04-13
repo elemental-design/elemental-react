@@ -45,18 +45,6 @@ export const mixin = css`
   ${flexbox}
 `;
   /* ${({ lineHeight }: { lineHeight: string }) => lineHeight ? `line-height: ${lineHeight};` : ''} */
-
-const Text: ComponentType<Props> = styled.Text.withConfig({
-  shouldForwardProp: (propName: keyof Props) => !['lineHeight', 'fontSize', 'bold', 'color'].includes(propName),
-})`${mixin}`;
-
-// const parseLineHeight = (lineHeight: string) => {
-//   if (Platform.OS === 'web') {
-//     return Number.isNaN(Number(lineHeight)) ? lineHeight : `${lineHeight}px`;
-//   }
-
-//   return lineHeight;
-// };
 type TextProps = Props & {
   bold?: boolean,
   as?: string,
@@ -65,33 +53,50 @@ type TextProps = Props & {
   children?: ReactNode,
 };
 
-const TextContainer = ({
-  bold, center, as: asElement, ...props
-}: TextProps) => {
-  const att = parseAttributes(
-    bold && {
-      fontWeight: 'bold',
-      as: Platform.OS === 'web' ? 'strong' : undefined,
-    },
-    center && {
-      textAlign: 'center',
-    },
-    // eslint-disable-next-line react/destructuring-assignment
-    props.fontSize && !props.lineHeight && {
-      lineHeight: props.fontSize, // eslint-disable-line react/destructuring-assignment
-    },
-    // bt && { mt: bt - props.fontSize },
-  );
+const Text: ComponentType<TextProps> = styled.Text.withConfig({
+  shouldForwardProp: (propName: keyof Props) => !['lineHeight', 'fontSize', 'bold', 'color'].includes(propName),
+}).attrs(({ bold, center, fontSize, lineHeight }: TextProps) => ({
+  ...(bold && { fontWeight: 'bold', as: Platform.OS === 'web' ? 'string' : undefined }),
+  ...(center && { textAlign: 'center' }),
+  ...(fontSize && !lineHeight && { lineHeight: fontSize })
+}))`${mixin}`;
 
-  return (
-    <Text
-      {...att}
-      {...props}
-    />
-  );
-};
+// const parseLineHeight = (lineHeight: string) => {
+//   if (Platform.OS === 'web') {
+//     return Number.isNaN(Number(lineHeight)) ? lineHeight : `${lineHeight}px`;
+//   }
 
-TextContainer.defaultProps = {
+//   return lineHeight;
+// };
+
+
+// const TextContainer = ({
+//   bold, center, as: asElement, ...props
+// }: TextProps) => {
+//   const att = parseAttributes(
+//     bold && {
+//       fontWeight: 'bold',
+//       as: Platform.OS === 'web' ? 'strong' : undefined,
+//     },
+//     center && {
+//       textAlign: 'center',
+//     },
+//     // eslint-disable-next-line react/destructuring-assignment
+//     props.fontSize && !props.lineHeight && {
+//       lineHeight: props.fontSize, // eslint-disable-line react/destructuring-assignment
+//     },
+//     // bt && { mt: bt - props.fontSize },
+//   );
+
+//   return (
+//     <Text
+//       {...att}
+//       {...props}
+//     />
+//   );
+// };
+
+Text.defaultProps = {
   fontSize: 16,
   fontFamily: 'primary',
   bold: undefined,
@@ -99,4 +104,4 @@ TextContainer.defaultProps = {
 };
 
 
-export default TextContainer;
+export default Text;
