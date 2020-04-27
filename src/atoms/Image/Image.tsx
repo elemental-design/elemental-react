@@ -1,23 +1,27 @@
 /* eslint-disable react/require-default-props */
 import React, { ComponentType } from 'react';
 import {
-  color, border, borderRadius, borderWidth,
-  borderColor, space, height, width,
-  opacity, maxWidth, maxHeight, ColorProps, BorderProps, SpaceProps, layout, LayoutProps,
+  compose, color, border, layout,
+  space, position, flexbox,
+  ColorProps, BorderProps, SpaceProps, LayoutProps,
 } from 'styled-system';
 import styled from '../../styled';
+import { mixin } from '../Rectangle/Rectangle';
+import { parseAttributes } from '../../utils';
+import { Platform } from 'react-primitives';
+import { makeShadow } from '../../utils/shadow';
 
 type ImageProps = ColorProps & BorderProps & SpaceProps & LayoutProps & {
   source: {
     uri: string,
-  }
+  },
+  src?: string,
+  boxShadow?: (_: {}) => string | string,
+  as?: string,
 };
 
 const Image: ComponentType<ImageProps> = styled.Image`
-  ${color}
-  ${border}
-  ${space}
-  ${layout}
+  ${mixin}
 `;
 
 // $FlowFixMe
@@ -26,15 +30,16 @@ Image.defaultProps = {
   height: 'auto',
 };
 
-const ImageContainer = ({ src, ...props }: ImageProps & { src?: string }) => {
-  if (src) {
-    return (
-      <Image source={{ uri: src }} {...props} />
-    );
-  }
+const ImageContainer = ({ as: asElement, boxShadow, src, source, ...props }: ImageProps) => {
+  const att = parseAttributes(
+    Platform.OS === 'web' && asElement && { as: asElement },
+    // FIXME: Figure out why shadows prop doesn't work in react-sketchapp
+    // boxShadow && Platform.OS !== 'sketch' ? (makeShadow(boxShadow) as any) : { shadows: makeShadow(boxShadow, null, true) },
+    boxShadow && (makeShadow(boxShadow) as any),
+  );
 
   return (
-    <Image {...props} />
+    <Image source={src ? { uri: src } : source} {...props} {...att} />
   );
 };
 

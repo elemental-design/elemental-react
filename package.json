@@ -6,6 +6,7 @@
   "main": "lib/webBundle.js",
   "figma": "lib/main.figma.js",
   "sketch": "lib/sketchBundle.js",
+  "react-native": "lib/main.native.js",
   "scripts": {
     "build:js": "rollup -c",
     "build:types": "tsc -d true --emitDeclarationOnly --declarationDir lib",

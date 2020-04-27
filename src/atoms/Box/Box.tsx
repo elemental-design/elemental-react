@@ -2,9 +2,6 @@
 // @flow
 import React, { ComponentProps, ComponentType, ReactNode } from 'react';
 import { Platform, Touchable } from 'react-primitives';
-import {
-  justifyContent, alignItems, flexDirection, alignSelf, justifySelf, position, zIndex, SpaceProps, FlexboxProps, PositionProps, FlexDirectionProps,
-} from 'styled-system';
 
 import styled from '../../styled';
 
@@ -14,13 +11,11 @@ import { makeShadow } from '../../utils/shadow';
 import { withContext } from '../../LayoutProvider';
 // import useHover from '../../hooks/use-hover';
 
-type BoxProps = ComponentProps<typeof Rectangle> & PositionProps & {
+type BoxProps = ComponentProps<typeof Rectangle> & {
   onClick?: () => any,
 };
 
-const Box: ComponentType<BoxProps> = styled(Rectangle)`
-  ${position}
-`;
+const Box: ComponentType<BoxProps> = styled(Rectangle)``;
 
 Box.defaultProps = {
   display: 'flex',

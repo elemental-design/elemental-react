@@ -33,10 +33,10 @@ const Button = (rawProps: ComponentProps<typeof Row> & Props) => {
     pseudoState && pseudoState !== 'idle' && { ...pseudoStyles[pseudoState] },
     disabled && { ...pseudoStyles.disabled },
   );
-  const { color, fontSize, fontFamily, fontWeight, letterSpacing } = { ...styles, ...attributes };
+  const { color, fontSize, fontFamily, fontWeight, lineHeight, letterSpacing } = { ...styles, ...attributes };
 
   const children = (label || typeof childrenProp === 'string') ? (
-    <ButtonText color={color} fontSize={fontSize} fontFamily={fontFamily} fontWeight={fontWeight} letterSpacing={letterSpacing}>
+    <ButtonText color={color} fontSize={fontSize} fontFamily={fontFamily} fontWeight={fontWeight} letterSpacing={letterSpacing} lineHeight={lineHeight}>
       {label || childrenProp}
     </ButtonText>
   ) : typeof childrenProp === 'function'

@@ -2,7 +2,7 @@ import { ComponentType } from 'react';
 import { Platform } from 'react-primitives';
 import {
   compose, color, border, flexbox, layout, space,
-  BorderProps, LayoutProps, ColorProps, FlexboxProps, SpaceProps, boxShadow,
+  BorderProps, LayoutProps, ColorProps, FlexboxProps, SpaceProps, PositionProps, boxShadow, position,
 } from 'styled-system';
 import styled, { css } from '../../styled';
 
@@ -17,11 +17,11 @@ import {
 } from '../../utils/styles';
 
 
-type RectangleProps = BorderProps & LayoutProps & ColorProps & FlexboxProps & SpaceProps;
+type RectangleProps = BorderProps & LayoutProps & ColorProps & FlexboxProps & SpaceProps & PositionProps;
 
 
-const mixin = css`
-  ${compose(space, color, border, layout, flexbox)}
+export const mixin = css`
+  ${compose(space, color, border, layout, flexbox, position)}
   ${Platform.select({
     sketch: compose(shadowColor, shadowOffset, shadowOpacity, shadowRadius, shadowSpread, shadowInner),
     figma: compose(shadowColor, shadowOffset, shadowOpacity, shadowRadius),

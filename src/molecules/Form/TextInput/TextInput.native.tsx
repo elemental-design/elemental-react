@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { ComponentProps } from 'react';
 // @ts-ignore
-import { TextInput } from 'react-native-web';
+import { TextInput } from 'react-native';
 
 // import { Box } from '../../../../atoms/components';
 

@@ -22,10 +22,13 @@ const parseValue = (str: string) => {
   const parts = str.split(PARTS_REG)
   const inset = parts.includes('inset')
   const last = parts.slice(-1)[0]
-  const color = !isLength(last) ? last : undefined
+  // const color = !isLength(last) ? last : str.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)/g) || undefined
+  let color: string[] | string = str.match(/(#([0-9a-f]{3}){1,2}|(rgba|hsla)\(\d{1,3}%?(,\s?\d{1,3}%?){2},\s?(1|0|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/g) || undefined;
+  color = Array.isArray(color) && color.length === 1 ? color[0] : undefined;
 
   const nums = parts
     .filter((n) => n !== 'inset')
+    // @ts-ignore
     .filter((n) => n !== color)
     .map(toNum)
   const [offsetX, offsetY, blurRadius, spreadRadius] = nums
@@ -97,7 +100,7 @@ export const makeShadow = (_shadow: (_: {}) => string | string, elevation: numbe
           shadowOffset: isArray ? { width: offsetX, height: offsetY } : `${offsetX}px ${offsetY}px`,
           shadowOpacity: opacity,
           shadowRadius: blurRadius,
-          shadowSpread: Platform.OS === 'sketch' ? spreadRadius : undefined, // *shadowSpread* not supported in RN
+          shadowSpread: Platform.OS === 'sketch' ? spreadRadius || 0 : undefined, // *shadowSpread* not supported in RN
         };
       });
       const [shadow] = res || [];

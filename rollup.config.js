@@ -27,6 +27,10 @@ const output = {
     react: 'React',
     'react-dom': 'ReactDOM',
     'styled-components': 'styled',
+    'styled-components/primitives': 'styledP',
+    'react-primitives': 'reactPrimitives',
+    'styled-system': 'styledSystem',
+    'react-primitives-svg': 'reactPrimitivesSvg',
   },
   // plugins: getPlugins('web'),
 };
@@ -53,6 +57,19 @@ export default [
     ],
     external: ['react', 'react-native-web', 'react-dom', 'react-is', 'styled-components', 'styled-components/primitives', 'styled-system', 'react-primitives', 'react-primitives-svg'],
     plugins: getPlugins('sketch')
+  },
+  // React Native export
+  {
+    input: 'src/index.ts',
+    output: [
+      {
+        ...output,
+        file: packageJson['react-native'],
+        // plugins: getPlugins('sketch'),
+      }
+    ],
+    external: ['react', 'react-native-web', 'react-native', 'react-dom', 'react-is', 'styled-components', 'styled-components/primitives', 'styled-system', 'react-primitives', 'react-primitives-svg'],
+    plugins: getPlugins('native')
   },
   // Figma export
   {
