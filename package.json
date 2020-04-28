@@ -1,6 +1,6 @@
 {
   "name": "elemental-react",
-  "version": "0.2.0",
+  "version": "0.3.0-beta.2",
   "description": "Cross-platform React design elements to let you build your own design language.",
   "types": "lib/index.d.ts",
   "main": "lib/webBundle.js",
