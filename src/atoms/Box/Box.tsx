@@ -20,7 +20,7 @@ const Box: ComponentType<BoxProps> = styled(Rectangle)``;
 Box.defaultProps = {
   display: 'flex',
   flexDirection: 'column',
-  ...(Platform.OS !== 'figma' && { borderColor: 'none' }), // FIXME: ...
+  ...((Platform.OS === 'web' || Platform.OS === 'sketch') && { borderColor: 'none' }), // FIXME: ...
   borderStyle: 'solid',
   borderWidth: 0,
 };

@@ -15,3 +15,4 @@ export { Headline, TextInput, Row } from './molecules';
 
 export { LayoutProvider } from './LayoutProvider';
 export { useLayout } from './context';
+export { useWindowDimensions } from './hooks';
