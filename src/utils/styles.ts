@@ -2,7 +2,7 @@
 import { system } from '@styled-system/core';
 
 export const transform = system({
-  shadowColor: {
+  transform: {
     property: 'transform',
     scale: 'transforms',
   },
