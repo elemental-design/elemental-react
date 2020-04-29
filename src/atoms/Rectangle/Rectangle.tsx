@@ -7,6 +7,7 @@ import {
 import styled, { css } from '../../styled';
 
 import {
+  transform,
   shadowColor,
   shadowOffset,
   shadowOpacity,
@@ -21,6 +22,8 @@ type RectangleProps = BorderProps & LayoutProps & ColorProps & FlexboxProps & Sp
 
 
 export const mixin = css`
+  /* Sketch transforms seem a bit buggy with styled-components/primitives css-to-react-native */
+  ${Platform.OS !== 'sketch' ? transform : ''}
   ${compose(space, color, border, layout, flexbox, position)}
   ${Platform.select({
     sketch: compose(shadowColor, shadowOffset, shadowOpacity, shadowRadius, shadowSpread, shadowInner),
@@ -46,8 +49,11 @@ const flexPropNames = [
 const spacePropNames = [
   'm', 'margin', 'marginTop', 'mt', 'marginRight', 'mr', 'marginBottom', 'mb', 'marginLeft', 'ml', 'marginX', 'mx', 'marginY', 'my', 'padding', 'p', 'paddingTop', 'pt', 'paddingRight', 'pr', 'paddingBottom', 'pb', 'paddingLeft', 'pl', 'paddingX', 'px', 'paddingY', 'py',
 ];
+const extraPropNames = [
+  'transform', 'shadowColor', 'shadowOffset', 'shadowOpacity', 'shadowRadius', 'shadowSpread', 'shadowInner', 'elevation',
+];
 
-const filterOutProps = [...borderPropNames, ...layoutPropNames, ...colorPropNames, ...flexPropNames, ...spacePropNames];
+const filterOutProps = [...borderPropNames, ...layoutPropNames, ...colorPropNames, ...flexPropNames, ...spacePropNames, ...extraPropNames];
 
 const Rectangle: ComponentType<RectangleProps> = styled.View.withConfig({
   shouldForwardProp: (propName: keyof RectangleProps) => !filterOutProps.includes(propName),

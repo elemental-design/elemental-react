@@ -1,6 +1,13 @@
 // @ts-nocheck
 import { system } from '@styled-system/core';
 
+export const transform = system({
+  shadowColor: {
+    property: 'transform',
+    scale: 'transforms',
+  },
+});
+
 export const shadowColor = system({
   shadowColor: {
     property: 'shadowColor',
