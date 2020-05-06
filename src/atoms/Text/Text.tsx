@@ -15,11 +15,12 @@ export type Props = TypographyProps & ColorProps & TextStyleProps & SpaceProps &
 
 const isNumber = (n: number | string) => typeof n === 'number' && !Number.isNaN(n);
 
-const getLineHeight = (n: number, scale: Object) => {
-  const val = get(scale, n, n);
+const makePx = (n: number | string) => isNumber(Number(n)) ? `${String(n)}px` : n;
 
-  // return (Platform.OS === 'web' || Platform.OS === 'figma') && isNumber(val) ? `${val}px` : val;
-  return isNumber(Number(val)) ? `${val}px` : val;
+const getLineHeight = (n: number, scale: Object) => {
+  const val = get(scale, n, makePx(n));
+
+  return makePx(val);
 };
 
 const lineHeight = system({
