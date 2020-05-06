@@ -1,7 +1,11 @@
 {
   "name": "elemental-react",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Cross-platform React design elements to let you build your own design language.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elemental-design/elemental-react.git"
+  },
   "types": "lib/index.d.ts",
   "main": "lib/webBundle.js",
   "figma": "lib/main.figma.js",

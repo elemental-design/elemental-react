@@ -10,6 +10,12 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+## 0.3.1
+
+- Forward ref for <Box />
+- Pass `src` prop for `<Image />` on web
+- Concat `px` to `<Text />` `lineHeight` prop transformation
+
 ## 0.3.0
 
 - Add React Native support
