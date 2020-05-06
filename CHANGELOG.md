@@ -10,6 +10,15 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+## 0.3.3
+
+- Create web umd/esm build
+
+
+## 0.3.2
+
+- Fix
+
 ## 0.3.1
 
 - Forward ref for <Box />
