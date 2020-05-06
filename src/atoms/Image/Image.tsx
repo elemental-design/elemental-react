@@ -36,6 +36,7 @@ const ImageContainer = ({ as: asElement, boxShadow, src, source, ...props }: Ima
     // FIXME: Figure out why shadows prop doesn't work in react-sketchapp
     // boxShadow && Platform.OS !== 'sketch' ? (makeShadow(boxShadow) as any) : { shadows: makeShadow(boxShadow, null, true) },
     boxShadow && (makeShadow(boxShadow) as any),
+    Platform.OS === 'web' && { src },
   );
 
   return (
