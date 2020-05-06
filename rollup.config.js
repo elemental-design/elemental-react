@@ -20,7 +20,7 @@ const getPlugins = (platform) => [
 
 const output = {
   // file: 'dist/bundle.esm.js',
-  file: packageJson.main,
+  file: packageJson.module,
   format: 'esm',
   name: packageJson.name,
   globals: {
@@ -40,6 +40,11 @@ export default [
   {
     input: 'src/index.ts',
     output: [
+      {
+        ...output,
+        file: packageJson.main,
+        format: 'umd',
+      },
       output
     ],
     external: ['react', 'react-native-web', 'react-dom', 'react-is', 'styled-components', 'styled-system', 'react-primitives', 'react-primitives-svg'],

@@ -1,1 +1,1 @@
-export * from './dist/webBundle';
+export * from './lib/main.web.esm';

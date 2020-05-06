@@ -7,9 +7,10 @@
     "url": "https://github.com/elemental-design/elemental-react.git"
   },
   "types": "lib/index.d.ts",
-  "main": "lib/webBundle.js",
+  "main": "lib/main.web.umd.js",
+  "module": "lib/main.web.esm.js",
   "figma": "lib/main.figma.js",
-  "sketch": "lib/sketchBundle.js",
+  "sketch": "lib/main.sketch.js",
   "react-native": "lib/main.native.js",
   "scripts": {
     "build:js": "rollup -c",
