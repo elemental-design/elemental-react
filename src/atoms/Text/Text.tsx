@@ -18,7 +18,8 @@ const isNumber = (n: number | string) => typeof n === 'number' && !Number.isNaN(
 const getLineHeight = (n: number, scale: Object) => {
   const val = get(scale, n, n);
 
-  return (Platform.OS === 'web' || Platform.OS === 'figma') && isNumber(val) ? `${val}px` : val;
+  // return (Platform.OS === 'web' || Platform.OS === 'figma') && isNumber(val) ? `${val}px` : val;
+  return isNumber(Number(val)) ? `${val}px` : val;
 };
 
 const lineHeight = system({
