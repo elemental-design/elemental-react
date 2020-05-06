@@ -13,6 +13,7 @@ import { withContext } from '../../LayoutProvider';
 
 type BoxProps = ComponentProps<typeof Rectangle> & {
   onClick?: () => any,
+  ref: () => any,
 };
 
 const Box: ComponentType<BoxProps> = styled(Rectangle)``;
@@ -66,13 +67,14 @@ type Props = BoxProps & {
   p?: number,
   boxShadow?: (_: {}) => string | string,
   children?: ReactNode,
+  forwardedRef: () => any,
 };
 
 
 
 
 const BoxContainer = ({
-  p, pl, pr, pt, pb,
+  p, pl, pr, pt, pb, forwardedRef,
   m, ml, mr, mt, mb, boxShadow,
   onClick, size, width, flex, styles,
   height, center, as: asElement, disabled,
@@ -89,6 +91,7 @@ const BoxContainer = ({
 
   const box = (
     <Box
+      ref={forwardedRef}
       {...getSize({
         size, width, height, p, pl, pr, pt, pb, m, ml, mr, mt, mb, flex,
       }, breakpoint)}

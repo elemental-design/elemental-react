@@ -59,11 +59,11 @@ const LayoutProvider = ({ breakpoint, children }: {
 };
 
 function withContext<T extends { value: { state: { breakpoint: number } } }>(Component: ComponentType<T>) {
-  return (props: Omit<T, "value">) => (
+  return React.forwardRef((props: Omit<T, "value">, ref) => (
     <LayoutContext.Consumer>
-      {value => <Component {...props as T} value={value} />}
+      {value => <Component forwardedRef={ref} {...props as T} value={value} />}
     </LayoutContext.Consumer>
-  );
+  ));
 };
 
 const LayoutContextConsumer = LayoutContext.Consumer;
