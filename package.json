@@ -1,6 +1,6 @@
 {
   "name": "elemental-react",
-  "version": "0.3.3",
+  "version": "0.3.5",
   "description": "Cross-platform React design elements to let you build your own design language.",
   "repository": {
     "type": "git",
@@ -32,8 +32,6 @@
     "react-native-web": "^0.9.0",
     "react-primitives": "^0.8.1",
     "react-primitives-svg": "0.0.3",
-    "react-primitives-textinput": "github:macintoshhelper/react-primitives-textinput",
-    "rollup": "^2.0.2",
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
@@ -58,6 +56,7 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
+    "rollup": "^2.0.2",
     "rollup-plugin-alias": "^1.5.2",
     "rollup-plugin-babel": "^4.4.0",
     "styled-components": "4.2.0",
