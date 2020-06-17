@@ -3,6 +3,14 @@
 import React, { ComponentProps, ComponentType, ReactNode } from 'react';
 import { Platform, Touchable } from 'react-primitives';
 
+const RN: any = Platform.select({
+  ios: () => require('react-native'),
+  android: () => require('react-native'),
+  default: () => {},
+})();
+
+const { TouchableOpacity, TouchableHighlight, TouchableNativeFeedback } = RN;
+
 import styled from '../../styled';
 
 import Rectangle from '../Rectangle';
@@ -13,7 +21,9 @@ import { withContext } from '../../LayoutProvider';
 
 type BoxProps = ComponentProps<typeof Rectangle> & {
   onClick?: () => any,
+  onPress?: () => any,
   ref: () => any,
+  as: string | ReactNode,
 };
 
 const Box: ComponentType<BoxProps> = styled(Rectangle)``;
@@ -60,10 +70,11 @@ type Props = BoxProps & {
   pseudoState: InteractiveState,
   disabled?: boolean,
   onClick?: () => void,
+  onPress?: () => void,
+  touchable: 'opacity' | 'highlight' | 'default' | 'material' | 'native',
   size?: number,
   name?: string, // react-sketchapp
   center?: boolean,
-  as?: string,
   p?: number,
   boxShadow?: (_: {}) => string | string,
   children?: ReactNode,
@@ -75,13 +86,14 @@ type Props = BoxProps & {
 
 const BoxContainer = ({
   p, pl, pr, pt, pb, forwardedRef,
-  m, ml, mr, mt, mb, boxShadow,
-  onClick, size, width, flex, styles,
+  m, ml, mr, mt, mb, boxShadow, touchable = 'default',
+  onPress, size, width, flex, styles,
   height, center, as: asElement, disabled,
   value, ...props
 }: Props & {
   value: { state: { breakpoint: number } }
 }) => {
+  const onClick = onPress || props.onClick;
   const att = parseAttributes<any>(
     Platform.OS === 'web' && asElement && { as: asElement },
     boxShadow && Platform.OS !== 'sketch' ? makeShadow(boxShadow) : { shadows: makeShadow(boxShadow, null, true)},
@@ -89,24 +101,50 @@ const BoxContainer = ({
   const { breakpoint = 0 } = value && value.state || {};
 
 
+  let TouchableView;
+  let TouchableComp = Touchable;
+  
+  if (typeof onClick === 'function') {
+    if (['ios', 'android'].includes(Platform.OS)) {
+      switch (touchable) {
+        case 'opacity': {
+          TouchableView = TouchableOpacity;
+          break;
+        }
+        case 'highlight': {
+          TouchableView = TouchableHighlight;
+          break;
+        }
+        case 'native':
+        case 'material': {
+          if (Platform.OS === 'android') {
+            TouchableComp = TouchableNativeFeedback;
+          }
+        }
+      }
+    }
+  }
+
   const box = (
     <Box
+      as={typeof onClick === 'function' && TouchableView}
       ref={forwardedRef}
       {...getSize({
         size, width, height, p, pl, pr, pt, pb, m, ml, mr, mt, mb, flex,
       }, breakpoint)}
       onClick={onClick}
+      onPress={['ios', 'android'].includes(Platform.OS) && onClick}
       {...(center ? { alignItems: 'center' } : {})}
       {...props}
       {...att}
     />
   );
 
-  if (onClick && Platform.OS !== 'web' && Platform.OS !== 'figma') {
+  if (typeof onClick === 'function' && !TouchableView && Platform.OS !== 'web' && Platform.OS !== 'figma') {
     return (
-      <Touchable onPress={() => onClick()}>
+      <TouchableComp onPress={() => onClick()}>
         {box}
-      </Touchable>
+      </TouchableComp>
     );
   }
 
