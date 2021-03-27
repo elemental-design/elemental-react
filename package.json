@@ -26,13 +26,7 @@
   "license": "ISC",
   "dependencies": {
     "@styled-system/theme-get": "^5.0.18",
-    "react": "^16.5.2",
-    "react-art": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-native-web": "^0.9.0",
-    "react-primitives": "^0.8.1",
-    "react-primitives-svg": "0.0.3",
-    "styled-system": "^5.1.5"
+    "react-primitives-svg": "0.0.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -63,9 +57,9 @@
     "typescript": "^3.8.3"
   },
   "peerDependencies": {
-    "styled-components": ">= 4",
-    "styled-system": ">= 5",
-    "react": ">= 16",
-    "react-dom": ">= 16"
+    "styled-components": ">=4",
+    "styled-system": ">=5",
+    "react": ">=16",
+    "react-dom": ">=16"
   }
 }
