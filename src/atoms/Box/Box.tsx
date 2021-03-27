@@ -6,7 +6,7 @@ import { Platform, Touchable } from 'react-primitives';
 const RN: any = Platform.select({
   ios: () => require('react-native'),
   android: () => require('react-native'),
-  default: () => {},
+  default: () => { return {} },
 })();
 
 const { TouchableOpacity, TouchableHighlight, TouchableNativeFeedback } = RN;
