@@ -38,7 +38,7 @@ const borderPropNames = [
   'border', 'borderWidth', 'borderStyle', 'borderColor', 'borderRadius', 'borderTop', 'borderTopWidth', 'borderTopStyle', 'borderTopColor', 'borderTopLeftRadius', 'borderTopRightRadius', 'borderRight', 'borderRightWidth', 'borderRightStyle', 'borderRightColor', 'borderBottom', 'borderBottomWidth', 'borderBottomStyle', 'borderBottomColor', 'borderBottomLeftRadius', 'borderBottomRightRadius', 'borderLeft', 'borderLeftWidth', 'borderLeftStyle', 'borderLeftColor', 'borderX', 'borderY',
 ];
 const layoutPropNames = [
-  'width', 'height', 'display', 'minWidth', 'minHeight', 'maxWidth', 'maxHeight', 'size', 'verticalAlign', 'overflow', 'overflowX', 'overflowY',
+  'width', 'height', 'display', 'minWidth', 'minHeight', 'maxWidth', 'maxHeight', 'size', 'verticalAlign', 'overflow', 'overflowX', 'overflowY', 'position',
 ];
 const colorPropNames = [
   'color', 'bg', 'backgroundColor',
@@ -50,10 +50,10 @@ const spacePropNames = [
   'm', 'margin', 'marginTop', 'mt', 'marginRight', 'mr', 'marginBottom', 'mb', 'marginLeft', 'ml', 'marginX', 'mx', 'marginY', 'my', 'padding', 'p', 'paddingTop', 'pt', 'paddingRight', 'pr', 'paddingBottom', 'pb', 'paddingLeft', 'pl', 'paddingX', 'px', 'paddingY', 'py',
 ];
 const extraPropNames = [
-  'transform', 'shadowColor', 'shadowOffset', 'shadowOpacity', 'shadowRadius', 'shadowSpread', 'shadowInner', 'elevation',
+  'transform', 'shadowColor', 'shadowOffset', 'shadowOpacity', 'shadowRadius', 'shadowSpread', 'shadowInner', 'elevation', 'shadows', 'name',
 ];
 
-const filterOutProps = [...borderPropNames, ...layoutPropNames, ...colorPropNames, ...flexPropNames, ...spacePropNames, ...extraPropNames];
+export const filterOutProps = [...borderPropNames, ...layoutPropNames, ...colorPropNames, ...flexPropNames, ...spacePropNames, ...extraPropNames];
 
 const Rectangle: ComponentType<RectangleProps> = styled.View.withConfig({
   shouldForwardProp: (propName: keyof RectangleProps) => !filterOutProps.includes(propName),

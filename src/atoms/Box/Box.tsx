@@ -6,7 +6,7 @@ import { Platform, Touchable } from 'react-primitives';
 const RN: any = Platform.select({
   ios: () => require('react-native'),
   android: () => require('react-native'),
-  default: () => {},
+  default: () => { return {}; },
 })();
 
 const { TouchableOpacity, TouchableHighlight, TouchableNativeFeedback } = RN;
@@ -22,8 +22,8 @@ import { withContext } from '../../LayoutProvider';
 type BoxProps = ComponentProps<typeof Rectangle> & {
   onClick?: () => any,
   onPress?: () => any,
-  ref: () => any,
-  as: string | ReactNode,
+  ref?: () => any,
+  as?: string | ReactNode,
 };
 
 const Box: ComponentType<BoxProps> = styled(Rectangle)``;
@@ -67,11 +67,11 @@ type StyleKey = 'hover' | 'focus' | 'disabled';
 
 type Props = BoxProps & {
   styles?: { [K in StyleKey]?: Object }
-  pseudoState: InteractiveState,
+  pseudoState?: InteractiveState,
   disabled?: boolean,
   onClick?: () => void,
   onPress?: () => void,
-  touchable: 'opacity' | 'highlight' | 'default' | 'material' | 'native',
+  touchable?: 'opacity' | 'highlight' | 'default' | 'material' | 'native',
   size?: number,
   name?: string, // react-sketchapp
   center?: boolean,

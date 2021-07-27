@@ -1,1 +1,1 @@
-export { default } from './Rectangle';
+export { default, filterOutProps } from './Rectangle';

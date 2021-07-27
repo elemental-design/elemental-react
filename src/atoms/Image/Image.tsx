@@ -12,9 +12,11 @@ import { Platform } from 'react-primitives';
 import { makeShadow } from '../../utils/shadow';
 
 type ImageProps = ColorProps & BorderProps & SpaceProps & LayoutProps & {
-  source: {
+  source?: {
     uri: string,
   },
+  style?: any,
+  resizeMode?: any,
   src?: string,
   boxShadow?: (_: {}) => string | string,
   as?: string,
