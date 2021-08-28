@@ -78,7 +78,7 @@ type Props = BoxProps & {
   p?: number,
   boxShadow?: (_: {}) => string | string,
   children?: ReactNode,
-  forwardedRef: () => any,
+  forwardedRef?: () => any,
 };
 
 

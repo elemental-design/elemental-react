@@ -1,6 +1,6 @@
 {
   "name": "elemental-react",
-  "version": "0.3.5-beta.0",
+  "version": "0.3.6",
   "description": "Cross-platform React design elements to let you build your own design language.",
   "repository": {
     "type": "git",
@@ -55,11 +55,11 @@
     "styled-components": "4.2.0",
     "typescript": "^3.8.3"
   },
-  "peerDependencies": {
+  "optionalDependencies": {
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0",
-    "react-primitives-svg": ">=0",
-    "styled-components": ">=4",
-    "styled-system": ">=5"
+    "react-primitives-svg": ">= 0.0.2",
+    "styled-components": ">= 4.0.0",
+    "styled-system": ">= 5.0.0"
   }
 }
