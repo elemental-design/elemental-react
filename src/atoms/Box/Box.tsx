@@ -132,8 +132,8 @@ const BoxContainer = ({
       {...getSize({
         size, width, height, p, pl, pr, pt, pb, m, ml, mr, mt, mb, flex,
       }, breakpoint)}
-      onClick={onClick}
-      onPress={['ios', 'android'].includes(Platform.OS) && onClick}
+      onClick={Platform.OS === 'web' ? onClick : undefined}
+      onPress={['ios', 'android'].includes(Platform.OS) ? onClick : undefined}
       {...(center ? { alignItems: 'center' } : {})}
       {...props}
       {...att}
