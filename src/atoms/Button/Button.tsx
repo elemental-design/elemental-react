@@ -1,10 +1,11 @@
-import React, { ComponentProps, ReactNode } from 'react';
+import React, { ComponentProps, ReactNode, useState } from 'react';
 import { Platform } from 'react-primitives';
 
 import Row from '../../molecules/Row';
 import Text from '../Text';
 import { parseAttributes } from '../../utils';
 import { useDesign, withDesign, withStyles } from '../../ThemeProvider';
+import { InteractiveState } from '../Box/Box';
 
 type Props = {
   children: (_: Object) => ReactNode | ReactNode | string,
@@ -19,6 +20,8 @@ const ButtonText = withStyles(Text, {
 });
 ButtonText.displayName = 'ButtonText';
 
+
+
 const Button = (rawProps: ComponentProps<typeof Row> & Props) => {
   const design = useDesign('Button');
   const props: ComponentProps<typeof Row> & Props & ComponentProps<typeof Text> = {
@@ -26,17 +29,18 @@ const Button = (rawProps: ComponentProps<typeof Row> & Props) => {
     ...design,
   };
   const { outlined, children: childrenProp, disabled, styles: pseudoStyles, borderWidth = 1, label, ...styles } = props;
-  const pseudoState = Platform.OS === 'sketch' ? props.pseudoState || 'idle' : 'idle';
+  // @ts-ignore
+  const resolvedPseudoStyles = (props.pseudoState && props.pseudoState !== 'idle' && { ...pseudoStyles[props.pseudoState] }) || {} as any;
+  // const pseudoState = Platform.OS === 'sketch' ? props.pseudoState || 'idle' : 'idle';
 
   const attributes = parseAttributes(
-    (outlined || (borderWidth && borderWidth !== 1)) && { borderWidth },
-    pseudoState && pseudoState !== 'idle' && { ...pseudoStyles[pseudoState] },
+    (outlined || (borderWidth && borderWidth !== 1)) && { borderWidth }, // @ts-ignore
     disabled && { ...pseudoStyles.disabled },
   );
   const { color, fontSize, fontFamily, fontWeight, lineHeight, letterSpacing } = { ...styles, ...attributes };
 
   const children = (label || typeof childrenProp === 'string') ? (
-    <ButtonText color={color} fontSize={fontSize} fontFamily={fontFamily} fontWeight={fontWeight} letterSpacing={letterSpacing} lineHeight={lineHeight}>
+    <ButtonText color={resolvedPseudoStyles.color || color} fontSize={fontSize} fontFamily={fontFamily} fontWeight={fontWeight} letterSpacing={letterSpacing} lineHeight={lineHeight}>
       {label || childrenProp}
     </ButtonText>
   ) : typeof childrenProp === 'function'
@@ -44,7 +48,14 @@ const Button = (rawProps: ComponentProps<typeof Row> & Props) => {
       : childrenProp;
 
   return (
-    <Row as="button" disabled={disabled} {...design} {...styles} {...attributes}>
+    <Row
+      as="button"
+      disabled={disabled}
+      styles={pseudoStyles}
+      {...design}
+      {...styles}
+      {...attributes}
+    >
       {children}
     </Row>
   );

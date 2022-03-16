@@ -15,6 +15,7 @@ import {
   shadowSpread,
   shadowInner,
   elevation,
+  cursor,
 } from '../../utils/styles';
 
 
@@ -30,7 +31,7 @@ export const mixin = css`
     figma: compose(shadowColor, shadowOffset, shadowOpacity, shadowRadius),
     ios: compose(shadowColor, shadowOffset, shadowOpacity, shadowRadius),
     android: compose(elevation),
-    web: boxShadow,
+    web: compose(boxShadow, cursor),
   })}
 `;
 
@@ -50,13 +51,13 @@ const spacePropNames = [
   'm', 'margin', 'marginTop', 'mt', 'marginRight', 'mr', 'marginBottom', 'mb', 'marginLeft', 'ml', 'marginX', 'mx', 'marginY', 'my', 'padding', 'p', 'paddingTop', 'pt', 'paddingRight', 'pr', 'paddingBottom', 'pb', 'paddingLeft', 'pl', 'paddingX', 'px', 'paddingY', 'py',
 ];
 const extraPropNames = [
-  'transform', 'shadowColor', 'shadowOffset', 'shadowOpacity', 'shadowRadius', 'shadowSpread', 'shadowInner', 'elevation', 'shadows', 'name',
+  'transform', 'shadowColor', 'shadowOffset', 'shadowOpacity', 'shadowRadius', 'shadowSpread', 'shadowInner', 'elevation', 'shadows', 'name', 'cursor', 'pseudoState'
 ];
 
-export const filterOutProps = [...borderPropNames, ...layoutPropNames, ...colorPropNames, ...flexPropNames, ...spacePropNames, ...extraPropNames];
+export const rectangleStylePropNames = [...borderPropNames, ...layoutPropNames, ...colorPropNames, ...flexPropNames, ...spacePropNames, ...extraPropNames];
 
 const Rectangle: ComponentType<RectangleProps> = styled.View.withConfig({
-  shouldForwardProp: (propName: keyof RectangleProps) => !filterOutProps.includes(propName),
+  shouldForwardProp: (propName: keyof RectangleProps) => !rectangleStylePropNames.includes(propName),
 })`
   ${mixin}
 `;

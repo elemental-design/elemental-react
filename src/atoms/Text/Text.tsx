@@ -26,7 +26,7 @@ const getLineHeight = (n: number, scale: Object) => {
 const lineHeight = system({
   lineHeight: {
     property: 'lineHeight',
-    scale: 'lineHeights',
+    scale: 'lineHeights', // @ts-ignore
     transform: getLineHeight,
   },
 });
@@ -55,8 +55,14 @@ type TextProps = Props & {
   children?: ReactNode,
 };
 
+const typographyProps = ['fontFamily', 'fontSize', 'lineHeight', 'bold'];
+const colorProps = ['color'];
+
+// TODO: Clean up or use styled-system internals
+export const textStylePropNames = [...typographyProps, ...colorProps];
+
 const Text: ComponentType<TextProps> = styled.Text.withConfig({
-  shouldForwardProp: (propName: keyof Props) => !['lineHeight', 'fontSize', 'bold', 'color'].includes(propName),
+  shouldForwardProp: (propName: keyof Props) => !textStylePropNames.includes(propName),
 }).attrs(({ bold, center, fontSize, lineHeight }: TextProps) => ({
   ...(bold && { fontWeight: 'bold', as: Platform.OS === 'web' ? 'string' : undefined }),
   ...(center && { textAlign: 'center' }),
