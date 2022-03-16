@@ -23,7 +23,7 @@ const parseValue = (str: string) => {
   const inset = parts.includes('inset')
   const last = parts.slice(-1)[0]
   // const color = !isLength(last) ? last : str.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)/g) || undefined
-  let color: string[] | string = str.match(/(#([0-9a-f]{3}){1,2}|(rgba|hsla)\(\d{1,3}%?(,\s?\d{1,3}%?){2},\s?(1|0|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/g) || undefined;
+  let color: string[] | string | undefined = str.match(/(#([0-9a-f]{3}){1,2}|(rgba|hsla)\(\d{1,3}%?(,\s?\d{1,3}%?){2},\s?(1|0|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/g) || undefined;
   color = Array.isArray(color) && color.length === 1 ? color[0] : undefined;
 
   const nums = parts
@@ -75,7 +75,7 @@ const makeCss = ({shadowColor, shadowOffset, shadowOpacity, shadowRadius, shadow
 `
 */
 
-export const makeShadow = (_shadow: (_: {}) => string | string, elevation: number | undefined | void = 1, isArray?: boolean) => {
+export const makeShadow = (_shadow: (_: {}) => string | string, elevation: number | undefined | null | void = 1, isArray?: boolean) => {
   switch (Platform.OS) {
     case 'web': {
       return { boxShadow: _shadow };
@@ -83,18 +83,18 @@ export const makeShadow = (_shadow: (_: {}) => string | string, elevation: numbe
     case 'ios':
     case 'sketch':
     case 'figma': {
-      let shadows: Shadow[] | string = typeof _shadow === 'function' ? _shadow({}) : _shadow
+      let shadows: Shadow[] | string | any = typeof _shadow === 'function' ? _shadow({}) : _shadow
       shadows = typeof shadows === 'string' ? parse(shadows) : shadows
 
       // TODO: Need a non-hacky way to pass shadow arrays to Figma/React Native
       const res = ((Array.isArray(shadows) && shadows) || []).map((shadow: any) => {  
         const { inset, offsetX, offsetY, blurRadius, spreadRadius, color } = shadow
   
-        const rgba = color.includes('rgba') ? parseRgba(color) : null
-        const {r, g, b, a: opacity = 1} = rgba || {}
+        const rgba: { r: number, g: number, b: number, a: number } | null = color.includes('rgba') ? parseRgba(color) : null
+        const {r, g, b, a: opacity = 1} = rgba || {};
   
         return {
-          shadowColor: rgba ? rgbToHex(r, g, b) : color,
+          shadowColor: rgba && r && g && b ? rgbToHex(r, g, b) : color,
           shadowInner: inset,
           // shadowOffset: {width: offsetX, height: offsetY},
           shadowOffset: isArray ? { width: offsetX, height: offsetY } : `${offsetX}px ${offsetY}px`,

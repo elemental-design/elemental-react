@@ -1,6 +1,13 @@
 // @ts-nocheck
 import { system } from '@styled-system/core';
 
+export const cursor = system({
+  transform: {
+    property: 'cursor',
+    scale: 'cursors',
+  },
+});
+
 export const transform = system({
   transform: {
     property: 'transform',

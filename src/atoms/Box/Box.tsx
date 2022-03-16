@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 // @flow
-import React, { ComponentProps, ComponentType, ReactNode } from 'react';
+import React, { ComponentProps, ComponentType, ReactNode, useState } from 'react';
 import { Platform, Touchable } from 'react-primitives';
 
 const RN: any = Platform.select({
@@ -13,15 +13,15 @@ const { TouchableOpacity, TouchableHighlight, TouchableNativeFeedback } = RN;
 
 import styled from '../../styled';
 
-import Rectangle from '../Rectangle';
+import Rectangle, { rectangleStylePropNames } from '../Rectangle';
 import { parseAttributes } from '../../utils';
 import { makeShadow } from '../../utils/shadow';
 import { withContext } from '../../LayoutProvider';
 // import useHover from '../../hooks/use-hover';
 
 type BoxProps = ComponentProps<typeof Rectangle> & {
-  onClick?: () => any,
-  onPress?: () => any,
+  onClick?: (...args: any[]) => any,
+  onPress?: (...args: any[]) => any,
   ref?: () => any,
   as?: string | ReactNode,
 };
@@ -62,15 +62,17 @@ const getSize = (args: Styles, breakpoint: number) => {
   return res;
 };
 
-type InteractiveState = 'idle' | 'hover' | 'focus';
+export type InteractiveState = 'idle' | 'hover' | 'focus' | undefined;
 type StyleKey = 'hover' | 'focus' | 'disabled';
 
 type Props = BoxProps & {
   styles?: { [K in StyleKey]?: Object }
   pseudoState?: InteractiveState,
   disabled?: boolean,
-  onClick?: () => void,
-  onPress?: () => void,
+  onClick?: (...args: any[]) => void,
+  onPress?: (...args: any[]) => void,
+  onMouseEnter: Function,
+  onMouseLeave: Function,
   touchable?: 'opacity' | 'highlight' | 'default' | 'material' | 'native',
   size?: number,
   name?: string, // react-sketchapp
@@ -81,22 +83,58 @@ type Props = BoxProps & {
   forwardedRef?: () => any,
 };
 
+const useMouseEventState = (initialPseudoState: InteractiveState) => {
+  const [hover, setHover] = useState(false);
+  const [pseudoState, setPseudoState]: [InteractiveState, Function] = useState('idle');
 
+  if (Platform.OS === 'sketch') {
+    return { events: {}, pseudoState: initialPseudoState || 'idle' };
+  }
+
+  const onPress = () => {
+    setPseudoState('focus');
+
+    setTimeout(() => {
+      setPseudoState(initialPseudoState || 'idle');
+    }, 200);
+  }
+
+  const onMouseEnter = () => {
+    setHover(true);
+    setPseudoState('hover');
+  };
+  const onMouseLeave = () => {
+    if (hover) {
+      setHover(false);
+      setPseudoState(initialPseudoState || 'idle');
+    }
+  };
+  return {
+    events: { onMouseEnter, onMouseLeave, onPress },
+    pseudoState: initialPseudoState || pseudoState,
+  }
+}
+
+// FIXME: Move pseudoStyles into a hook and context that can be accessed by parent components like <Button>
+// To allow for things like custom disabled or hover button text
 
 
 const BoxContainer = ({
-  p, pl, pr, pt, pb, forwardedRef,
-  m, ml, mr, mt, mb, boxShadow, touchable = 'default',
+  p, pl, pr, pt, pb, px, py, forwardedRef,
+  m, ml, mr, mt, mb, mx, my, boxShadow, touchable = 'default',
   onPress, size, width, flex, styles,
   height, center, as: asElement, disabled,
   value, ...props
 }: Props & {
   value: { state: { breakpoint: number } }
 }) => {
+  const { events: mouseEvents, pseudoState } = useMouseEventState(props.pseudoState);
   const onClick = onPress || props.onClick;
+  const pseudoStyles = { ...styles };
   const att = parseAttributes<any>(
     Platform.OS === 'web' && asElement && { as: asElement },
-    boxShadow && Platform.OS !== 'sketch' ? makeShadow(boxShadow) : { shadows: makeShadow(boxShadow, null, true)},
+    pseudoState && pseudoState !== 'idle' && { ...pseudoStyles[pseudoState] },
+    boxShadow && Platform.OS !== 'sketch' ? makeShadow(boxShadow) : { shadows: makeShadow(boxShadow as any, null, true)},
   );
   const { breakpoint = 0 } = value && value.state || {};
 
@@ -125,18 +163,32 @@ const BoxContainer = ({
     }
   }
 
+  const onPressHandler = (event: any) => {
+    if (typeof onClick === 'function') {
+      onClick(event);
+    }
+    if (typeof mouseEvents?.onPress === 'function') {
+      mouseEvents.onPress();
+    }
+  }
+
   const box = (
     <Box
       as={typeof onClick === 'function' && TouchableView}
       ref={forwardedRef}
-      {...getSize({
-        size, width, height, p, pl, pr, pt, pb, m, ml, mr, mt, mb, flex,
+      {...getSize({ // @ts-ignore
+        size, width, height, p, pl, pr, pt, pb, px, py, m, ml, mr, mt, mb, mx, my, flex,
       }, breakpoint)}
-      onClick={onClick}
-      onPress={['ios', 'android'].includes(Platform.OS) && onClick}
+      // @ts-ignore
+      onMouseEnter={mouseEvents.onMouseEnter}
+      // @ts-ignore
+      onMouseLeave={mouseEvents.onMouseLeave}
       {...(center ? { alignItems: 'center' } : {})}
       {...props}
       {...att}
+      // inject mouse event click handler for pseudoState
+      {...(['ios', 'android'].includes(Platform.OS) && { onPress: onPressHandler })}
+      {...('web' === Platform.OS && { onClick: onPressHandler })}
     />
   );
 
@@ -157,5 +209,7 @@ BoxContainer.defaultProps = {
   size: undefined,
   name: 'Box',
 };
+
+export { rectangleStylePropNames as boxStylePropNames };
 
 export default withContext(BoxContainer);

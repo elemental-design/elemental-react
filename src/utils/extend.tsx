@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
-export default (Component: FC<any>, fn: Function) => (props: Object) => {
-  const styles = fn(props);
+export default (Component: FC<any>, fn: Function | Object) => (props: Object) => {
+  const styles = typeof fn === 'function' ? fn(props) : fn;
 
   const baseStyles: { [key: string]: any } = {};
   const pseudoStyles: any = {};
