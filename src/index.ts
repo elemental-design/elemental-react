@@ -1,8 +1,8 @@
 export { StyleSheetManager, ServerStyleSheet } from 'styled-components';
 // @ts-ignore
-export { default as styled } from 'styled-components/primitives';
+export { default as styled } from './styled';
 
-export { default as ThemeProvider } from './ThemeProvider';
+export { default as ThemeProvider, useDesign, useTheme } from './ThemeProvider';
 
 export { default as extend } from './utils/extend';
 
