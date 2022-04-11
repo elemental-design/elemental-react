@@ -3,6 +3,7 @@ import React, {
   createContext,
   ReactNode,
   ComponentType,
+  useContext,
 } from 'react';
 // import Platform from 'react-primitives';
 
@@ -22,7 +23,7 @@ const initialState = {
   dispatch: () => {},
 };
 
-const LayoutContext = createContext<Value>(initialState);
+export const LayoutContext = createContext<Value>(initialState);
 
 // const reducer = (state, action) => {
 //   const { type, payload } = action;
@@ -39,7 +40,7 @@ const LayoutContext = createContext<Value>(initialState);
 //   }
 // };
 
-const LayoutProvider = ({ breakpoint, children }: {
+export const LayoutProvider = ({ breakpoint, children }: {
   breakpoint: number,
   children: ReactNode,
 }) => {
@@ -58,14 +59,22 @@ const LayoutProvider = ({ breakpoint, children }: {
   );
 };
 
-function withContext<T extends { value: { state: { breakpoint: number } } }>(Component: ComponentType<T>) {
-  return React.forwardRef((props: Omit<T, "value">, ref) => (
+interface WithContextProps {
+  value: { state: { breakpoint: number } };
+};
+
+export const useLayout = (): State => {
+  const { state } = useContext(LayoutContext);
+
+  return state;
+};
+
+export function withContext<T extends WithContextProps>(Component: ComponentType<T>) {
+  return React.forwardRef((props: Omit<T, keyof WithContextProps>, ref) => (
     <LayoutContext.Consumer>
       {value => <Component forwardedRef={ref} {...props as T} value={value} />}
     </LayoutContext.Consumer>
   ));
 };
 
-const LayoutContextConsumer = LayoutContext.Consumer;
-
-export { LayoutProvider, LayoutContext, LayoutContextConsumer, withContext };
+export const LayoutContextConsumer = LayoutContext.Consumer;

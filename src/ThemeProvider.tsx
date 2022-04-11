@@ -7,6 +7,7 @@ import deepmerge from 'deepmerge';
 import useColorScheme from './hooks/use-color-scheme';
 // import { Platform } from 'react-primitives';
 import { ThemeProvider } from './styled';
+import { LayoutProvider } from './LayoutProvider';
 // import { ThemeProvider as ThemeProviderPrimitives } from 'styled-components/primitives';
 
 // const ThemeProvider = Platform.OS === 'web' ? ThemeProviderWeb : ThemeProviderPrimitives;
@@ -176,13 +177,14 @@ function applyColorScheme(
 }
 
 const ComponentLibThemeProvider = ({
-  design = {}, children, ...props
+  design = {}, breakpoint = 0, children, ...props
 }: {
   design: { [key: string]: any },
   theme: typeof baseTheme,
   colorMode?: ColorMode,
   dayScheme?: string,
   nightScheme?: string,
+  breakpoint?: number,
   children: ReactNode,
 }) => {
   const {
@@ -235,7 +237,9 @@ const ComponentLibThemeProvider = ({
     >
       <ThemeProvider theme={resolvedTheme}>
         <DesignProvider design={design}>
-          {children}
+          <LayoutProvider breakpoint={breakpoint}>
+            {children}
+          </LayoutProvider>
         </DesignProvider>
       </ThemeProvider>
     </ThemeContext.Provider>
