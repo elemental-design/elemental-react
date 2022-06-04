@@ -120,7 +120,7 @@ const useMouseEventState = (initialPseudoState: InteractiveState) => {
 
 
 const Box: FC<Props> = ({
-  p, pl, pr, pt, pb, px, py, forwardedRef,
+  p, pl, pr, pt, pb, px, py, forwardedRef, ref,
   m, ml, mr, mt, mb, mx, my, boxShadow, touchable = 'default',
   onPress, size, width, flex, styles,
   height, center, as: asElement, disabled, ...props
@@ -172,7 +172,7 @@ const Box: FC<Props> = ({
   const box = (
     <_Box
       as={typeof onClick === 'function' && TouchableView}
-      ref={forwardedRef}
+      ref={ref || forwardedRef}
       {...getSize({ // @ts-ignore
         size, width, height, p, pl, pr, pt, pb, px, py, m, ml, mr, mt, mb, mx, my, flex,
       }, breakpoint)}
